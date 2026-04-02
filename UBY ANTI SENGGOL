@@ -1,5 +1,5 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- MODE: ON/OFF SIZE 10 (ANTI-STUCK EDITION)
+-- FIX: BENER-BENER MATIKAN HITBOX EDITION
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -7,7 +7,7 @@ local userInputService = game:GetService("UserInputService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatFinalFix"
+screenGui.Name = "UbyGoatAntiStuckFix2"
 screenGui.ResetOnSpawn = false
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -70,8 +70,8 @@ sub.TextSize = 14
 sub.ZIndex = 6
 sub.Parent = main
 
--- -- VARIABEL KONTROL -- --
-_G.HSize = 2
+-- -- VARIABEL KONTROL (ON/OFF) -- --
+_G.HitboxStatus = false -- Mulai dari OFF
 _G.HTrans = 0.5
 
 -- FUNGSI TOMBOL
@@ -89,41 +89,45 @@ local function createBtn(name, pos, callback)
     btn.MouseButton1Click:Connect(callback)
 end
 
--- FITUR: AUTO WALK YAHAYUK (ON/OFF SIZE 10)
+-- FITUR: AUTO WALK YAHAYUK (ON/OFF TOTAL)
 createBtn("AUTO WALK YAHAYUK", UDim2.new(0.1, 0, 0.55, 0), function()
-    if _G.HSize == 2 then 
-        _G.HSize = 10 -- Aktifkan
-        print("Hitbox ON (Size 10)")
-    else
-        _G.HSize = 2 -- Matikan
-        print("Hitbox OFF (Normal)")
-    end
+    _G.HitboxStatus = not _G.HitboxStatus -- Toggle Status
+    print("Status Hitbox: "..tostring(_G.HitboxStatus))
 end)
 
 -- FITUR: AUTO WALK BALAPAN (GANTI TRANSPARANSI)
 createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
     _G.HTrans = _G.HTrans + 0.2
     if _G.HTrans > 1 then _G.HTrans = 0 end
-    print("Transparansi: "..tostring(_G.HTrans))
 end)
 
--- -- LOOP HITBOX ANTI-STUCK -- --
+-- -- LOOP HITBOX ANTI-STUCK (BENERAN MATI) -- --
 runService.RenderStepped:Connect(function()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
             local hrp = p.Character.HumanoidRootPart
             
-            hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize)
-            hrp.Transparency = _G.HTrans
-            
-            -- Settingan Biar Gak Nyangkut/Stuck:
+            -- Settingan Inti Biar Gak Nyangkut (ALWAYS FALSE)
             hrp.CanCollide = false 
             hrp.CanTouch = false   
             hrp.CanQuery = true    
             
-            hrp.Massless = true    
-            hrp.Material = Enum.Material.Neon
-            hrp.BrickColor = BrickColor.new("Deep orange")
+            if _G.HitboxStatus == true then
+                -- ON: Size 10 (Neon Oranye)
+                hrp.Size = Vector3.new(10, 10, 10)
+                hrp.Transparency = _G.HTrans
+                hrp.Massless = true    
+                hrp.Material = Enum.Material.Neon
+                hrp.BrickColor = BrickColor.new("Deep orange")
+            else
+                -- OFF TOTAL: BALIK KE GAME NORMAL (Size 2, Material Plastic, No Neon)
+                hrp.Size = Vector3.new(2, 2, 2)
+                hrp.Transparency = 0 -- Default
+                hrp.Massless = false    -- Default
+                hrp.Material = Enum.Material.Plastic -- HAPUS EFEK NEON
+                -- HAPUS WARNA ORANYE JRENG
+                hrp.Color = Color3.new(1, 1, 1) -- Balik ke Putih/Default Part
+            end
         end
     end
 end)

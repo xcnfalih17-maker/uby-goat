@@ -1,12 +1,12 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT (ANTI-STUCK) | FEATURES: SIZE 10 & TRANS CONTROL
+-- CLEAN VERSION: NO SIZE/TRANS TEXT IN BUTTONS
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatFinalEngine"
+screenGui.Name = "UbyGoatClean"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -15,7 +15,6 @@ main.Position = UDim2.new(0.1, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 main.Active = true
 main.Draggable = true 
-main.ZIndex = 5
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
 -- TOMBOL CLOSE
@@ -25,7 +24,6 @@ closeBtn.Position = UDim2.new(1, -35, 0, 5)
 closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
-closeBtn.ZIndex = 10
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
 closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
 
@@ -38,7 +36,6 @@ title.TextColor3 = Color3.fromRGB(255, 115, 0)
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
-title.ZIndex = 6
 
 local sub = Instance.new("TextLabel", main)
 sub.Size = UDim2.new(1, 0, 0, 20)
@@ -48,81 +45,64 @@ sub.TextColor3 = Color3.new(1, 1, 1)
 sub.BackgroundTransparency = 1
 sub.Font = Enum.Font.GothamMedium
 sub.TextSize = 14
-sub.ZIndex = 6
 
 -- -- VARIABEL -- --
 _G.HitboxStatus = false
-_G.HSize = 10
 _G.HTrans = 0.7
 
--- FUNGSI CLEAN RESET (BIAR GA ADA PUTIH-PUTIH)
-local function resetToDefault()
-    for _, v in pairs(game:GetService('Players'):GetPlayers()) do
-        if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-            pcall(function()
-                local hrp = v.Character.HumanoidRootPart
-                hrp.Size = Vector3.new(2, 2, 2) -- Balik Size Default
-                hrp.Transparency = 1 -- Visual Hilang
-                hrp.Material = Enum.Material.Plastic
-                hrp.CanCollide = true
-                hrp.Massless = false
-            end)
-        end
-    end
-end
-
--- TOMBOL 1: YAHAYUK (KHUSUS SIZE)
+-- -- FITUR 1: AUTO WALK YAHAYUK (MURNI SIZE) -- --
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
 btnYahayuk.Position = UDim2.new(0.5, -90, 0.5, 0)
 btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnYahayuk.Text = "AUTO WALK YAHAYUK (SIZE)"
+btnYahayuk.Text = "AUTO WALK YAHAYUK"
 btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
 btnYahayuk.Font = Enum.Font.GothamBold
 btnYahayuk.TextSize = 10
-btnYahayuk.ZIndex = 7
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 
 btnYahayuk.MouseButton1Click:Connect(function()
     _G.HitboxStatus = not _G.HitboxStatus
-    if _G.HitboxStatus then
-        btnYahayuk.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
-    else
-        btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-        resetToDefault() -- Pas OFF bener-bener balik default
+    if not _G.HitboxStatus then
+        -- RESET TOTAL PAS OFF
+        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                pcall(function()
+                    v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 2)
+                    v.Character.HumanoidRootPart.Transparency = 1
+                end)
+            end
+        end
     end
 end)
 
--- TOMBOL 2: BALAPAN (KHUSUS TRANSPARANSI)
+-- -- FITUR 2: AUTO WALK BALAPAN (MURNI TRANSPARANSI) -- --
 local btnBalapan = Instance.new("TextButton", main)
 btnBalapan.Size = UDim2.new(0, 180, 0, 45)
 btnBalapan.Position = UDim2.new(0.5, -90, 0.7, 0)
 btnBalapan.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnBalapan.Text = "AUTO WALK BALAPAN (TRANS)"
+btnBalapan.Text = "AUTO WALK BALAPAN"
 btnBalapan.TextColor3 = Color3.new(1, 1, 1)
 btnBalapan.Font = Enum.Font.GothamBold
 btnBalapan.TextSize = 10
-btnBalapan.ZIndex = 7
 Instance.new("UICorner", btnBalapan).CornerRadius = UDim.new(0, 10)
 
 btnBalapan.MouseButton1Click:Connect(function()
     _G.HTrans = _G.HTrans + 0.2
-    if _G.HTrans > 1 then _G.HTrans = 0 end -- Loop Transparansi
+    if _G.HTrans > 1 then _G.HTrans = 0 end
 end)
 
--- -- CORE ENGINE JIPLAKAN LISSPLOIT -- --
+-- -- LOOP LOGIC LISSPLOIT -- --
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
-                    local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize) -- Fix 10
-                    hrp.Transparency = _G.HTrans -- Diatur tombol Balapan
-                    hrp.BrickColor = BrickColor.new("Really blue") -- Biru LisSploit
-                    hrp.Material = Enum.Material.Neon
-                    hrp.CanCollide = false
-                    hrp.Massless = true
+                    v.Character.HumanoidRootPart.Size = Vector3.new(10, 10, 10)
+                    v.Character.HumanoidRootPart.Transparency = _G.HTrans
+                    v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                    v.Character.HumanoidRootPart.Material = "Neon"
+                    v.Character.HumanoidRootPart.CanCollide = false
                 end)
             end
         end

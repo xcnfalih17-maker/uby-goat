@@ -1,12 +1,12 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- JIPLAK LISSPLOIT EDITION (ANTI STUCK & CLEAN OFF)
+-- LOGIC: LISSPLOIT (ANTI-STUCK) | STYLE: UBY GOAT
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatLissploit"
+screenGui.Name = "UbyGoatLissLogic"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -15,92 +15,116 @@ main.Position = UDim2.new(0.1, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 main.Active = true
 main.Draggable = true 
+main.ZIndex = 5
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
--- TOMBOL CLOSE
+-- TOMBOL CLOSE [X]
 local closeBtn = Instance.new("TextButton", main)
-closeBtn.Size = UDim2.new(0, 35, 0, 35)
-closeBtn.Position = UDim2.new(1, -40, 0, 5)
+closeBtn.Size = UDim2.new(0, 30, 0, 30)
+closeBtn.Position = UDim2.new(1, -35, 0, 5)
 closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
+closeBtn.ZIndex = 10
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
 closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
 
 -- JUDUL
 local title = Instance.new("TextLabel", main)
-title.Size = UDim2.new(1, 0, 0, 25)
-title.Position = UDim2.new(0, 0, 0.25, 0)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0.1, 0)
 title.Text = "UBY GOAT"
 title.TextColor3 = Color3.fromRGB(255, 115, 0) 
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
-title.Parent = main
+title.ZIndex = 6
 
 local sub = Instance.new("TextLabel", main)
 sub.Size = UDim2.new(1, 0, 0, 20)
-sub.Position = UDim2.new(0, 0, 0.35, 0)
+sub.Position = UDim2.new(0, 0, 0.25, 0)
 sub.Text = "SUPERRR FAMS"
 sub.TextColor3 = Color3.new(1, 1, 1)
 sub.BackgroundTransparency = 1
 sub.Font = Enum.Font.GothamMedium
 sub.TextSize = 14
-sub.Parent = main
+sub.ZIndex = 6
 
 -- -- VARIABEL KONTROL -- --
 _G.HitboxStatus = false
-_G.HeadSize = 10 -- Sesuai link LisSploit
+_G.HSize = 10
+_G.HTrans = 0.7
 
-local function createBtn(name, pos, callback)
-    local btn = Instance.new("TextButton", main)
-    btn.Size = UDim2.new(0, 180, 0, 45)
-    btn.Position = pos
-    btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-    btn.Text = name
-    btn.TextColor3 = Color3.new(1, 1, 1)
-    btn.Font = Enum.Font.GothamBold
-    btn.TextSize = 12
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
-    btn.MouseButton1Click:Connect(callback)
-end
-
--- TOMBOL YAHAYUK (ON/OFF)
-createBtn("AUTO WALK YAHAYUK", UDim2.new(0.1, 0, 0.55, 0), function()
-    _G.HitboxStatus = not _G.HitboxStatus
-    if _G.HitboxStatus then
-        print("UBY GOAT: Hitbox ON")
-    else
-        print("UBY GOAT: Hitbox OFF")
-    end
-end)
-
--- TOMBOL RESET VISUAL
-createBtn("RESET VISUAL", UDim2.new(0.1, 0, 0.75, 0), function()
-    for i, v in pairs(game:GetService('Players'):GetPlayers()) do
-        if v.Name ~= player.Name then
+-- FUNGSI RESET TOTAL
+local function resetHitbox()
+    for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+        if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
             pcall(function()
-                v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2)
-                v.Character.HumanoidRootPart.Transparency = 1
-                v.Character.HumanoidRootPart.Color = Color3.new(1,1,1)
-                v.Character.HumanoidRootPart.Material = Enum.Material.Plastic
-                v.Character.HumanoidRootPart.CanCollide = true
+                local hrp = v.Character.HumanoidRootPart
+                hrp.Size = Vector3.new(2, 2, 2)
+                hrp.Transparency = 1
+                hrp.BrickColor = BrickColor.new("Medium stone grey")
+                hrp.Material = Enum.Material.Plastic
+                hrp.CanCollide = true
             end)
         end
     end
+end
+
+-- TOMBOL YAHAYUK (SIZE)
+local btnSize = Instance.new("TextButton", main)
+btnSize.Size = UDim2.new(0, 180, 0, 45)
+btnSize.Position = UDim2.new(0.5, -90, 0.5, 0)
+btnSize.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+btnSize.Text = "AUTO WALK YAHAYUK: OFF"
+btnSize.TextColor3 = Color3.new(1, 1, 1)
+btnSize.Font = Enum.Font.GothamBold
+btnSize.TextSize = 10
+btnSize.ZIndex = 7
+Instance.new("UICorner", btnSize).CornerRadius = UDim.new(0, 10)
+
+btnSize.MouseButton1Click:Connect(function()
+    _G.HitboxStatus = not _G.HitboxStatus
+    if _G.HitboxStatus then
+        btnSize.Text = "AUTO WALK YAHAYUK: ON"
+        btnSize.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
+    else
+        btnSize.Text = "AUTO WALK YAHAYUK: OFF"
+        btnSize.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+        resetHitbox()
+    end
 end)
 
--- -- LOOP CORE (JIPLAK LOGIKA LISSPLOIT) -- --
+-- TOMBOL BALAPAN (TRANSPARENSI)
+local btnTrans = Instance.new("TextButton", main)
+btnTrans.Size = UDim2.new(0, 180, 0, 45)
+btnTrans.Position = UDim2.new(0.5, -90, 0.7, 0)
+btnTrans.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+btnTrans.Text = "AUTO WALK BALAPAN (0.7)"
+btnTrans.TextColor3 = Color3.new(1, 1, 1)
+btnTrans.Font = Enum.Font.GothamBold
+btnTrans.TextSize = 10
+btnTrans.ZIndex = 7
+Instance.new("UICorner", btnTrans).CornerRadius = UDim.new(0, 10)
+
+btnTrans.MouseButton1Click:Connect(function()
+    _G.HTrans = _G.HTrans + 0.1
+    if _G.HTrans > 1 then _G.HTrans = 0 end
+    btnTrans.Text = "AUTO WALK BALAPAN ("..string.format("%.1f", _G.HTrans)..")"
+end)
+
+-- -- CORE LOOP JIPLAK LISSPLOIT -- --
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
-        for i, v in pairs(game:GetService('Players'):GetPlayers()) do
-            if v.Name ~= player.Name then
+        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
-                    v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-                    v.Character.HumanoidRootPart.Transparency = 0.7
-                    v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue") -- LisSploit default
-                    v.Character.HumanoidRootPart.Material = "Neon"
-                    v.Character.HumanoidRootPart.CanCollide = false
+                    local hrp = v.Character.HumanoidRootPart
+                    hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize)
+                    hrp.Transparency = _G.HTrans
+                    hrp.BrickColor = BrickColor.new("Really blue")
+                    hrp.Material = Enum.Material.Neon
+                    hrp.CanCollide = false
                 end)
             end
         end

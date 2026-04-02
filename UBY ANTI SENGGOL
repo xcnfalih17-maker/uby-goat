@@ -1,12 +1,12 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- CLEAN VERSION: NO SIZE/TRANS TEXT IN BUTTONS
+-- CLEAN VERSION FINAL: NO SIZE/TRANS TEXT ANYWHERE
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatClean"
+screenGui.Name = "UbyGoatCleanFinal"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -50,11 +50,12 @@ sub.TextSize = 14
 _G.HitboxStatus = false
 _G.HTrans = 0.7
 
--- -- FITUR 1: AUTO WALK YAHAYUK (MURNI SIZE) -- --
+-- -- TOMBOL 1: AUTO WALK YAHAYUK (CLEAN) -- --
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
 btnYahayuk.Position = UDim2.new(0.5, -90, 0.5, 0)
 btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+-- INI UDAH GUA HAPUS TOTAL TULISAN (SIZE) NYA
 btnYahayuk.Text = "AUTO WALK YAHAYUK"
 btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
 btnYahayuk.Font = Enum.Font.GothamBold
@@ -63,7 +64,10 @@ Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 
 btnYahayuk.MouseButton1Click:Connect(function()
     _G.HitboxStatus = not _G.HitboxStatus
-    if not _G.HitboxStatus then
+    if _G.HitboxStatus then
+        btnYahayuk.BackgroundColor3 = Color3.fromRGB(0, 180, 0) -- Ijo kalo ON
+    else
+        btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0) -- Oranye kalo OFF
         -- RESET TOTAL PAS OFF
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
@@ -76,11 +80,12 @@ btnYahayuk.MouseButton1Click:Connect(function()
     end
 end)
 
--- -- FITUR 2: AUTO WALK BALAPAN (MURNI TRANSPARANSI) -- --
+-- -- TOMBOL 2: AUTO WALK BALAPAN (CLEAN) -- --
 local btnBalapan = Instance.new("TextButton", main)
 btnBalapan.Size = UDim2.new(0, 180, 0, 45)
 btnBalapan.Position = UDim2.new(0.5, -90, 0.7, 0)
 btnBalapan.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+-- INI JUGA UDAH GUA HAPUS TOTAL TULISAN (TRANS) NYA
 btnBalapan.Text = "AUTO WALK BALAPAN"
 btnBalapan.TextColor3 = Color3.new(1, 1, 1)
 btnBalapan.Font = Enum.Font.GothamBold
@@ -92,7 +97,7 @@ btnBalapan.MouseButton1Click:Connect(function()
     if _G.HTrans > 1 then _G.HTrans = 0 end
 end)
 
--- -- LOOP LOGIC LISSPLOIT -- --
+-- -- LOOP LOGIC LISSPLOIT (TETEP PAKE) -- --
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do

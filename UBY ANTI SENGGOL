@@ -1,5 +1,5 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- PENYAMARAN: AUTO WALK EDITION (GAK PAKE KEY)
+-- PENYAMARAN: AUTO WALK EDITION (SIZE 10 START - NO KEY)
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -23,7 +23,7 @@ main.ZIndex = 5
 local corner = Instance.new("UICorner", main)
 corner.CornerRadius = UDim.new(0, 15)
 
--- TOMBOL CLOSE [X]
+-- TOMBOL CLOSE [X] DI POJOK KANAN ATAS
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 35, 0, 35)
 closeBtn.Position = UDim2.new(1, -40, 0, 5)
@@ -46,7 +46,7 @@ userInputService.InputBegan:Connect(function(input, gpe)
     end
 end)
 
--- JUDUL ASLI: UBY GOAT
+-- JUDUL: UBY GOAT
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 25)
 title.Position = UDim2.new(0, 0, 0.25, 0)
@@ -58,7 +58,7 @@ title.TextSize = 24
 title.ZIndex = 6
 title.Parent = main
 
--- SUB JUDUL ASLI: SUPERRR FAMS
+-- SUB JUDUL: SUPERRR FAMS
 local sub = Instance.new("TextLabel", main)
 sub.Size = UDim2.new(1, 0, 0, 20)
 sub.Position = UDim2.new(0, 0, 0.35, 0)
@@ -89,18 +89,27 @@ local function createBtn(name, pos, callback)
     btn.MouseButton1Click:Connect(callback)
 end
 
--- FITUR DISAMARKAN (Hitbox Mode)
+-- FITUR SAMARAN SESUAI REQUEST (SIZE 10 START)
 createBtn("AUTO WALK YAHAYUK", UDim2.new(0.1, 0, 0.55, 0), function()
-    _G.HSize = 15 -- Ukuran Sedang
-    print("Mode Yahayuk Aktif!")
+    -- GANTI UKURAN (SIZE) Mulai dari 10
+    if _G.HSize < 10 then 
+        _G.HSize = 10 
+    elseif _G.HSize >= 50 then 
+        _G.HSize = 2 -- Balik ke Normal
+    else
+        _G.HSize = _G.HSize + 10 -- Nambah 20, 30, 40, 50
+    end
+    print("Ukuran Hitbox: "..tostring(_G.HSize))
 end)
 
 createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
-    _G.HSize = 40 -- Ukuran Gede
-    print("Mode Balapan Aktif!")
+    -- GANTI TRANSPARANSI (TRANS)
+    _G.HTrans = _G.HTrans + 0.2
+    if _G.HTrans > 1 then _G.HTrans = 0 end
+    print("Transparansi: "..tostring(_G.HTrans))
 end)
 
--- -- LOOP HITBOX -- --
+-- -- LOOP HITBOX (MESIN UTAMA) -- --
 runService.RenderStepped:Connect(function()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then

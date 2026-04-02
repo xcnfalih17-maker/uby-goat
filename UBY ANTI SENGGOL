@@ -1,12 +1,11 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- VERSI HARGA DIRI: ANTI-FREEZE & CLEAN OFF TOTAL
+-- LIGHTWEIGHT EDITION (GAK SENTUH SIZE ASLI)
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 
--- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatAntiBintang1"
+screenGui.Name = "UbyGoatLight"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -15,49 +14,20 @@ main.Position = UDim2.new(0.1, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 main.Active = true
 main.Draggable = true 
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
-local corner = Instance.new("UICorner", main)
-corner.CornerRadius = UDim.new(0, 15)
-
--- TOMBOL CLOSE [X]
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 35, 0, 35)
 closeBtn.Position = UDim2.new(1, -40, 0, 5)
 closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 20
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
-
-closeBtn.MouseButton1Click:Connect(function()
+closeBtn.MouseButton1Click:Connect(function() 
     _G.HitboxStatus = false
-    task.wait(0.1)
-    screenGui:Destroy()
+    screenGui:Destroy() 
 end)
 
--- JUDUL
-local title = Instance.new("TextLabel", main)
-title.Size = UDim2.new(1, 0, 0, 25)
-title.Position = UDim2.new(0, 0, 0.25, 0)
-title.Text = "UBY GOAT"
-title.TextColor3 = Color3.fromRGB(255, 115, 0) 
-title.BackgroundTransparency = 1
-title.Font = Enum.Font.GothamBold
-title.TextSize = 24
-title.Parent = main
-
-local sub = Instance.new("TextLabel", main)
-sub.Size = UDim2.new(1, 0, 0, 20)
-sub.Position = UDim2.new(0, 0, 0.35, 0)
-sub.Text = "SUPERRR FAMS"
-sub.TextColor3 = Color3.new(1, 1, 1)
-sub.BackgroundTransparency = 1
-sub.Font = Enum.Font.GothamMedium
-sub.TextSize = 14
-sub.Parent = main
-
--- -- VARIABEL -- --
 _G.HitboxStatus = false
 _G.HTrans = 0.5
 
@@ -83,43 +53,28 @@ createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
     if _G.HTrans > 1 then _G.HTrans = 0 end
 end)
 
--- -- SISTEM VISUAL SELECTION (GAK BAKAL FREEZE) -- --
+-- SISTEM PALING ENTENG: CUMA VISUAL BOX
 runService.RenderStepped:Connect(function()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
             local hrp = p.Character.HumanoidRootPart
-            local visual = hrp:FindFirstChild("UbyVisual")
+            local box = hrp:FindFirstChild("UbyVisual")
             
             if _G.HitboxStatus then
-                -- ON: Bikin Box Visual (Gak ganggu jalan musuh)
-                if not visual then
-                    visual = Instance.new("SelectionBox")
-                    visual.Name = "UbyVisual"
-                    visual.Parent = hrp
-                    visual.Adornee = hrp
-                    visual.LineThickness = 0.05 -- Garis pinggir tipis
+                if not box then
+                    box = Instance.new("SelectionBox")
+                    box.Name = "UbyVisual"
+                    box.Parent = hrp
+                    box.Adornee = hrp
                 end
-                
-                -- Gedein Hitbox dikit biar peluru masuk (Size 10)
-                hrp.Size = Vector3.new(10, 10, 10)
-                hrp.Transparency = _G.HTrans
+                box.SurfaceTransparency = _G.HTrans
+                box.Color3 = Color3.fromRGB(255, 115, 0)
+                -- Gak ngerubah Size HRP asli biar gak freeze/stuck
+                hrp.Size = Vector3.new(10, 10, 10) 
                 hrp.CanCollide = false
-                hrp.CanTouch = false
-                hrp.Massless = true
-                
-                -- Warna Box Visual
-                visual.Color3 = Color3.fromRGB(255, 115, 0) -- Oranye khas Uby
-                visual.SurfaceColor3 = Color3.fromRGB(255, 115, 0)
-                visual.SurfaceTransparency = _G.HTrans
             else
-                -- OFF: BALIK NORMAL TOTAL & HAPUS VISUAL
-                if visual then
-                    visual:Destroy()
-                end
+                if box then box:Destroy() end
                 hrp.Size = Vector3.new(2, 2, 2)
-                hrp.Transparency = 1
-                hrp.CanTouch = false
-                hrp.CanCollide = false
             end
         end
     end

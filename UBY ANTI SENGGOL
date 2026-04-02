@@ -1,14 +1,14 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | TROLL: GLITCH HIJACK | SHORTCUT: L
+-- ENGINE: LISSPLOIT | TROLL: AGGRESSIVE GLITCH | SHORTCUT: L
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 local soundService = game:GetService("SoundService")
 
--- -- 1. TROLL SCREEN (KLIK POJOK KANAN BUAT KELUAR) -- --
+-- -- 1. TOTAL GLITCH HIJACK (AGRESIF) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
-hijackGui.Name = "UbyGoatTrollPojok"
+hijackGui.Name = "UbyGoatAggressiveGlitch"
 hijackGui.DisplayOrder = 99999
 
 local bg = Instance.new("Frame", hijackGui)
@@ -16,13 +16,12 @@ bg.Size = UDim2.new(1, 0, 1, 0)
 bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 bg.Active = true
 
--- EFEK GLITCH KEDIP
+-- EFEK GLITCH GILA (KEDIP CEPET)
 task.spawn(function()
+    local colors = {Color3.fromRGB(0,0,0), Color3.fromRGB(40,0,0), Color3.fromRGB(15,0,0)}
     while hijackGui.Parent do
-        bg.BackgroundColor3 = Color3.fromRGB(20, 0, 0)
-        task.wait(0.1)
-        bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-        task.wait(0.2)
+        bg.BackgroundColor3 = colors[math.random(1, #colors)]
+        task.wait(0.03) -- Makin kecil angkanya makin kenceng kedipnya
     end
 end)
 
@@ -30,16 +29,16 @@ local msg = Instance.new("TextLabel", bg)
 msg.Size = UDim2.new(0.8, 0, 0.4, 0)
 msg.Position = UDim2.new(0.1, 0, 0.3, 0)
 msg.BackgroundTransparency = 1
-msg.Text = "SYSTEM FAILURE!\nPERANGKAT ANDA TELAH DI RETAS BY UBY GOAT\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
+msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
 msg.TextColor3 = Color3.fromRGB(255, 0, 0)
-msg.Font = Enum.Font.Code
+msg.Font = Enum.Font.GothamBold
 msg.TextSize = 35
 msg.TextWrapped = true
 
--- TOMBOL KELUAR DI POJOK KANAN (KECIL AJA)
+-- TOMBOL KELUAR DI POJOK KANAN (TETEP KECIL BIAR KASIAN)
 local exitBtn = Instance.new("TextButton", bg)
 exitBtn.Size = UDim2.new(0, 150, 0, 40)
-exitBtn.Position = UDim2.new(1, -160, 1, -50) -- Pojok kanan bawah
+exitBtn.Position = UDim2.new(1, -160, 1, -50) 
 exitBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 exitBtn.Text = "KELUAR SEKARANG"
 exitBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
@@ -47,20 +46,13 @@ exitBtn.Font = Enum.Font.GothamBold
 exitBtn.TextSize = 12
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 
--- SUARA ERROR
-local sfx = Instance.new("Sound", soundService)
-sfx.SoundId = "rbxassetid://4590662766"
-sfx.Volume = 1
-sfx:Play()
-
 exitBtn.MouseButton1Click:Connect(function()
-    sfx:Stop()
     hijackGui:Destroy()
 end)
 
--- -- 2. MENU UTAMA (LOGIC LISSPLOIT) -- --
+-- -- 2. MENU UTAMA (UBY GOAT CLEAN) -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatFinal"
+screenGui.Name = "UbyGoatCleanFinal"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -81,10 +73,10 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
+-- -- 3. LOGIC LISSPLOIT & SHORTCUT L -- --
 _G.HitboxStatus = false
 _G.HTrans = 0.7
 
--- FUNGSI TOGGLE YAHAYUK
 local function toggleYahayuk()
     _G.HitboxStatus = not _G.HitboxStatus
     local btn = main:FindFirstChild("YahayukBtn")
@@ -94,16 +86,13 @@ local function toggleYahayuk()
         if btn then btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0) end
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function() 
-                    v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) 
-                    v.Character.HumanoidRootPart.Transparency = 1 
-                end)
+                pcall(function() v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) v.Character.HumanoidRootPart.Transparency = 1 end)
             end
         end
     end
 end
 
--- BUTTONS
+-- BUTTON YAHAYUK (CLEAN)
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Name = "YahayukBtn"
 btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
@@ -116,6 +105,7 @@ btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
 
+-- BUTTON BALAPAN (CLEAN)
 local btnBalapan = Instance.new("TextButton", main)
 btnBalapan.Size = UDim2.new(0, 180, 0, 45)
 btnBalapan.Position = UDim2.new(0.5, -90, 0.7, 0)
@@ -132,12 +122,10 @@ end)
 
 -- SHORTCUT L
 userInputService.InputBegan:Connect(function(input, gp) 
-    if not gp and input.KeyCode == Enum.KeyCode.L then 
-        toggleYahayuk() 
-    end 
+    if not gp and input.KeyCode == Enum.KeyCode.L then toggleYahayuk() end 
 end)
 
--- CORE LISSPLOIT ENGINE
+-- CORE ENGINE
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do

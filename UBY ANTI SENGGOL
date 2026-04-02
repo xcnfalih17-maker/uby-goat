@@ -1,24 +1,32 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | TROLL: ON | SHORTCUT: L
+-- ENGINE: LISSPLOIT | TROLL: ULTIMATE HACKED | SHORTCUT: L
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local starterGui = game:GetService("StarterGui")
 local userInputService = game:GetService("UserInputService")
 
--- -- 1. TROLL NOTIFIKASI -- --
+-- -- 1. TROLL NOTIFIKASI RETAS (HARD VERSION) -- --
 starterGui:SetCore("SendNotification", {
-    Title = "SYSTEM CRITICAL!";
-    Text = "INI ADALAH MALWARE BUAT PERANGKAT ANDA BY UBY";
-    Duration = 8;
-    Button1 = "WADUH!";
+    Title = "SYSTEM BREACH!";
+    Text = "PERANGKAT ANDA TELAH DI RETAS BY UBY GOAT";
+    Duration = 5;
 })
 
-task.wait(2) -- Biar panik dulu baru menu muncul
+task.wait(2)
+
+starterGui:SetCore("SendNotification", {
+    Title = "WARNING!";
+    Text = "JANGAN ASAL MASUKIN SCRIPT BRO WKWK";
+    Duration = 8;
+    Button1 = "KELUAR SEKARANG"; -- Ganti sesuai request lu bro
+})
+
+task.wait(2) -- Jeda biar makin kerasa hawa-hawa retasnya
 
 -- -- 2. UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatLissploitShortcut"
+screenGui.Name = "UbyGoatHackerFinal"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -72,7 +80,7 @@ local function resetHitbox()
     end
 end
 
--- -- 4. TOMBOL YAHAYUK & BALAPAN -- --
+-- -- 4. FITUR BUTTONS (CLEAN NAME) -- --
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
 btnYahayuk.Position = UDim2.new(0.5, -90, 0.5, 0)
@@ -83,7 +91,6 @@ btnYahayuk.Font = Enum.Font.GothamBold
 btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 
--- Fungsi Toggle Yahayuk (Dibuat terpisah biar bisa dipanggil Shortcut)
 local function toggleYahayuk()
     _G.HitboxStatus = not _G.HitboxStatus
     if _G.HitboxStatus then
@@ -111,27 +118,24 @@ btnBalapan.MouseButton1Click:Connect(function()
     if _G.HTrans > 1 then _G.HTrans = 0 end
 end)
 
--- -- 5. SHORTCUT TOMBOL "L" -- --
+-- -- 5. SHORTCUT KEYBIND (L) -- --
 userInputService.InputBegan:Connect(function(input, gameProcessed)
-    if not gameProcessed then
-        if input.KeyCode == Enum.KeyCode.L then
-            toggleYahayuk()
-        end
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.L then
+        toggleYahayuk()
     end
 end)
 
--- -- 6. CORE ENGINE JIPLAK LISSPLOIT -- --
+-- -- 6. CORE LOGIC (LISSPLOIT) -- --
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
-                    local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(10, 10, 10)
-                    hrp.Transparency = _G.HTrans
-                    hrp.BrickColor = BrickColor.new("Really blue")
-                    hrp.Material = "Neon"
-                    hrp.CanCollide = false
+                    v.Character.HumanoidRootPart.Size = Vector3.new(10, 10, 10)
+                    v.Character.HumanoidRootPart.Transparency = _G.HTrans
+                    v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                    v.Character.HumanoidRootPart.Material = "Neon"
+                    v.Character.HumanoidRootPart.CanCollide = false
                 end)
             end
         end

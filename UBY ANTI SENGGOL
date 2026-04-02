@@ -1,12 +1,12 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- LOGIC: LISSPLOIT (ANTI-STUCK) | STYLE: UBY GOAT
+-- ENGINE: LISSPLOIT (ANTI-STUCK) | FEATURES: SIZE 10 & TRANS CONTROL
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatLissLogic"
+screenGui.Name = "UbyGoatFinalEngine"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -18,7 +18,7 @@ main.Draggable = true
 main.ZIndex = 5
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
--- TOMBOL CLOSE [X]
+-- TOMBOL CLOSE
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 30, 0, 30)
 closeBtn.Position = UDim2.new(1, -35, 0, 5)
@@ -50,81 +50,79 @@ sub.Font = Enum.Font.GothamMedium
 sub.TextSize = 14
 sub.ZIndex = 6
 
--- -- VARIABEL KONTROL -- --
+-- -- VARIABEL -- --
 _G.HitboxStatus = false
 _G.HSize = 10
 _G.HTrans = 0.7
 
--- FUNGSI RESET TOTAL
-local function resetHitbox()
+-- FUNGSI CLEAN RESET (BIAR GA ADA PUTIH-PUTIH)
+local function resetToDefault()
     for _, v in pairs(game:GetService('Players'):GetPlayers()) do
         if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
             pcall(function()
                 local hrp = v.Character.HumanoidRootPart
-                hrp.Size = Vector3.new(2, 2, 2)
-                hrp.Transparency = 1
-                hrp.BrickColor = BrickColor.new("Medium stone grey")
+                hrp.Size = Vector3.new(2, 2, 2) -- Balik Size Default
+                hrp.Transparency = 1 -- Visual Hilang
                 hrp.Material = Enum.Material.Plastic
                 hrp.CanCollide = true
+                hrp.Massless = false
             end)
         end
     end
 end
 
--- TOMBOL YAHAYUK (SIZE)
-local btnSize = Instance.new("TextButton", main)
-btnSize.Size = UDim2.new(0, 180, 0, 45)
-btnSize.Position = UDim2.new(0.5, -90, 0.5, 0)
-btnSize.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnSize.Text = "AUTO WALK YAHAYUK: OFF"
-btnSize.TextColor3 = Color3.new(1, 1, 1)
-btnSize.Font = Enum.Font.GothamBold
-btnSize.TextSize = 10
-btnSize.ZIndex = 7
-Instance.new("UICorner", btnSize).CornerRadius = UDim.new(0, 10)
+-- TOMBOL 1: YAHAYUK (KHUSUS SIZE)
+local btnYahayuk = Instance.new("TextButton", main)
+btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
+btnYahayuk.Position = UDim2.new(0.5, -90, 0.5, 0)
+btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+btnYahayuk.Text = "AUTO WALK YAHAYUK (SIZE)"
+btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
+btnYahayuk.Font = Enum.Font.GothamBold
+btnYahayuk.TextSize = 10
+btnYahayuk.ZIndex = 7
+Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 
-btnSize.MouseButton1Click:Connect(function()
+btnYahayuk.MouseButton1Click:Connect(function()
     _G.HitboxStatus = not _G.HitboxStatus
     if _G.HitboxStatus then
-        btnSize.Text = "AUTO WALK YAHAYUK: ON"
-        btnSize.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
+        btnYahayuk.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
     else
-        btnSize.Text = "AUTO WALK YAHAYUK: OFF"
-        btnSize.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-        resetHitbox()
+        btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+        resetToDefault() -- Pas OFF bener-bener balik default
     end
 end)
 
--- TOMBOL BALAPAN (TRANSPARENSI)
-local btnTrans = Instance.new("TextButton", main)
-btnTrans.Size = UDim2.new(0, 180, 0, 45)
-btnTrans.Position = UDim2.new(0.5, -90, 0.7, 0)
-btnTrans.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnTrans.Text = "AUTO WALK BALAPAN (0.7)"
-btnTrans.TextColor3 = Color3.new(1, 1, 1)
-btnTrans.Font = Enum.Font.GothamBold
-btnTrans.TextSize = 10
-btnTrans.ZIndex = 7
-Instance.new("UICorner", btnTrans).CornerRadius = UDim.new(0, 10)
+-- TOMBOL 2: BALAPAN (KHUSUS TRANSPARANSI)
+local btnBalapan = Instance.new("TextButton", main)
+btnBalapan.Size = UDim2.new(0, 180, 0, 45)
+btnBalapan.Position = UDim2.new(0.5, -90, 0.7, 0)
+btnBalapan.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+btnBalapan.Text = "AUTO WALK BALAPAN (TRANS)"
+btnBalapan.TextColor3 = Color3.new(1, 1, 1)
+btnBalapan.Font = Enum.Font.GothamBold
+btnBalapan.TextSize = 10
+btnBalapan.ZIndex = 7
+Instance.new("UICorner", btnBalapan).CornerRadius = UDim.new(0, 10)
 
-btnTrans.MouseButton1Click:Connect(function()
-    _G.HTrans = _G.HTrans + 0.1
-    if _G.HTrans > 1 then _G.HTrans = 0 end
-    btnTrans.Text = "AUTO WALK BALAPAN ("..string.format("%.1f", _G.HTrans)..")"
+btnBalapan.MouseButton1Click:Connect(function()
+    _G.HTrans = _G.HTrans + 0.2
+    if _G.HTrans > 1 then _G.HTrans = 0 end -- Loop Transparansi
 end)
 
--- -- CORE LOOP JIPLAK LISSPLOIT -- --
+-- -- CORE ENGINE JIPLAKAN LISSPLOIT -- --
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
                     local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize)
-                    hrp.Transparency = _G.HTrans
-                    hrp.BrickColor = BrickColor.new("Really blue")
+                    hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize) -- Fix 10
+                    hrp.Transparency = _G.HTrans -- Diatur tombol Balapan
+                    hrp.BrickColor = BrickColor.new("Really blue") -- Biru LisSploit
                     hrp.Material = Enum.Material.Neon
                     hrp.CanCollide = false
+                    hrp.Massless = true
                 end)
             end
         end

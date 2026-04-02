@@ -1,3 +1,6 @@
+-- [[ UBY GOAT - SUPERRR FAMS ]] --
+-- PENYAMARAN: AUTO WALK EDITION (GAK PAKE KEY)
+
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
@@ -20,56 +23,45 @@ main.ZIndex = 5
 local corner = Instance.new("UICorner", main)
 corner.CornerRadius = UDim.new(0, 15)
 
--- TOMBOL CLOSE [X] DI POJOK KANAN ATAS
+-- TOMBOL CLOSE [X]
 local closeBtn = Instance.new("TextButton", main)
-closeBtn.Name = "CloseButton"
 closeBtn.Size = UDim2.new(0, 35, 0, 35)
-closeBtn.Position = UDim2.new(1, -40, 0, 5) -- Posisi lebih masuk dikit biar gak kepotong
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0) -- Merah Solid
+closeBtn.Position = UDim2.new(1, -40, 0, 5)
+closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.TextSize = 20
-closeBtn.ZIndex = 10 -- Biar selalu di paling depan
-local bCorner = Instance.new("UICorner", closeBtn)
-bCorner.CornerRadius = UDim.new(0, 8)
+closeBtn.ZIndex = 10
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
 
 closeBtn.MouseButton1Click:Connect(function()
     screenGui:Destroy()
 end)
 
--- FITUR HIDE/SHOW PAKE TOMBOL "K"
+-- HIDE/SHOW PAKE TOMBOL "K"
 userInputService.InputBegan:Connect(function(input, gpe)
     if not gpe and input.KeyCode == Enum.KeyCode.K then
         main.Visible = not main.Visible
     end
 end)
 
--- LOGO SUPERRR FAMS (Pake link thumbnail biar lebih cepet load)
-local logo = Instance.new("ImageLabel", main)
-logo.Size = UDim2.new(0, 110, 0, 110)
-logo.Position = UDim2.new(0.5, -55, 0.05, 0)
-logo.BackgroundTransparency = 1
-logo.Image = "rbxassetid://74981978499733" 
-logo.ZIndex = 6
-logo.Parent = main
-
--- JUDUL: UBY GOAT
+-- JUDUL ASLI: UBY GOAT
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 25)
-title.Position = UDim2.new(0, 0, 0.45, 0)
+title.Position = UDim2.new(0, 0, 0.25, 0)
 title.Text = "UBY GOAT"
 title.TextColor3 = Color3.fromRGB(255, 115, 0) 
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
-title.TextSize = 22
+title.TextSize = 24
 title.ZIndex = 6
 title.Parent = main
 
--- SUB JUDUL: SUPERRR FAMS
+-- SUB JUDUL ASLI: SUPERRR FAMS
 local sub = Instance.new("TextLabel", main)
 sub.Size = UDim2.new(1, 0, 0, 20)
-sub.Position = UDim2.new(0, 0, 0.52, 0)
+sub.Position = UDim2.new(0, 0, 0.35, 0)
 sub.Text = "SUPERRR FAMS"
 sub.TextColor3 = Color3.new(1, 1, 1)
 sub.BackgroundTransparency = 1
@@ -85,26 +77,27 @@ _G.HTrans = 0.5
 -- FUNGSI TOMBOL
 local function createBtn(name, pos, callback)
     local btn = Instance.new("TextButton", main)
-    btn.Size = UDim2.new(0, 180, 0, 35)
+    btn.Size = UDim2.new(0, 180, 0, 45)
     btn.Position = pos
     btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
     btn.Text = name
     btn.TextColor3 = Color3.new(1, 1, 1)
     btn.Font = Enum.Font.GothamBold
-    btn.TextSize = 13
+    btn.TextSize = 12
     btn.ZIndex = 7
-    local btnCorner = Instance.new("UICorner", btn)
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
     btn.MouseButton1Click:Connect(callback)
 end
 
-createBtn("GANTI UKURAN", UDim2.new(0.1, 0, 0.65, 0), function()
-    _G.HSize = _G.HSize + 10
-    if _G.HSize > 60 then _G.HSize = 2 end
+-- FITUR DISAMARKAN (Hitbox Mode)
+createBtn("AUTO WALK YAHAYUK", UDim2.new(0.1, 0, 0.55, 0), function()
+    _G.HSize = 15 -- Ukuran Sedang
+    print("Mode Yahayuk Aktif!")
 end)
 
-createBtn("GANTI TRANSPARAN", UDim2.new(0.1, 0, 0.82, 0), function()
-    _G.HTrans = _G.HTrans + 0.2
-    if _G.HTrans > 1 then _G.HTrans = 0 end
+createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
+    _G.HSize = 40 -- Ukuran Gede
+    print("Mode Balapan Aktif!")
 end)
 
 -- -- LOOP HITBOX -- --

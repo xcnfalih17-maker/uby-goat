@@ -1,13 +1,12 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- FIX: DADA TARGET & REAL-TIME (CLEAN OFF MODE)
+-- VERSI HARGA DIRI: ANTI-FREEZE & CLEAN OFF TOTAL
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
-local userInputService = game:GetService("UserInputService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatDadaFixFinal"
+screenGui.Name = "UbyGoatAntiBintang1"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
@@ -32,7 +31,7 @@ closeBtn.TextSize = 20
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
 
 closeBtn.MouseButton1Click:Connect(function()
-    _G.HitboxStatus = false 
+    _G.HitboxStatus = false
     task.wait(0.1)
     screenGui:Destroy()
 end)
@@ -84,30 +83,43 @@ createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
     if _G.HTrans > 1 then _G.HTrans = 0 end
 end)
 
--- -- LOOP HITBOX REAL-TIME -- --
+-- -- SISTEM VISUAL SELECTION (GAK BAKAL FREEZE) -- --
 runService.RenderStepped:Connect(function()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
             local hrp = p.Character.HumanoidRootPart
+            local visual = hrp:FindFirstChild("UbyVisual")
             
             if _G.HitboxStatus then
-                -- MODE ON: Dada Gede Oranye Neon
+                -- ON: Bikin Box Visual (Gak ganggu jalan musuh)
+                if not visual then
+                    visual = Instance.new("SelectionBox")
+                    visual.Name = "UbyVisual"
+                    visual.Parent = hrp
+                    visual.Adornee = hrp
+                    visual.LineThickness = 0.05 -- Garis pinggir tipis
+                end
+                
+                -- Gedein Hitbox dikit biar peluru masuk (Size 10)
                 hrp.Size = Vector3.new(10, 10, 10)
                 hrp.Transparency = _G.HTrans
-                hrp.BrickColor = BrickColor.new("Deep orange")
-                hrp.Material = Enum.Material.Neon
-                hrp.CanCollide = false
-                hrp.CanTouch = false 
-                hrp.CanQuery = true
-                hrp.Massless = true
-            else
-                -- MODE OFF: BENER-BENER ILANG & GA ADA PUTIH-PUTIH
-                hrp.Size = Vector3.new(2, 2, 2)
-                hrp.Transparency = 1 -- INI BIAR KOTAKNYA GA KELIHATAN SAMA SEKALI
-                hrp.Material = Enum.Material.Plastic
                 hrp.CanCollide = false
                 hrp.CanTouch = false
-                hrp.CanQuery = false
+                hrp.Massless = true
+                
+                -- Warna Box Visual
+                visual.Color3 = Color3.fromRGB(255, 115, 0) -- Oranye khas Uby
+                visual.SurfaceColor3 = Color3.fromRGB(255, 115, 0)
+                visual.SurfaceTransparency = _G.HTrans
+            else
+                -- OFF: BALIK NORMAL TOTAL & HAPUS VISUAL
+                if visual then
+                    visual:Destroy()
+                end
+                hrp.Size = Vector3.new(2, 2, 2)
+                hrp.Transparency = 1
+                hrp.CanTouch = false
+                hrp.CanCollide = false
             end
         end
     end

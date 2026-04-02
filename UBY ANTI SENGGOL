@@ -1,14 +1,14 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | TROLL: AGGRESSIVE GLITCH | SHORTCUT: L
+-- ENGINE: LISSPLOIT | TOGGLE MENU: K | TOGGLE FEAT: L
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 local soundService = game:GetService("SoundService")
 
--- -- 1. TOTAL GLITCH HIJACK (AGRESIF) -- --
+-- -- 1. TOTAL GLITCH HIJACK (KLIK POJOK KANAN BAWAH) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
-hijackGui.Name = "UbyGoatAggressiveGlitch"
+hijackGui.Name = "UbyGoatPanicCloseFinal"
 hijackGui.DisplayOrder = 99999
 
 local bg = Instance.new("Frame", hijackGui)
@@ -16,12 +16,11 @@ bg.Size = UDim2.new(1, 0, 1, 0)
 bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 bg.Active = true
 
--- EFEK GLITCH GILA (KEDIP CEPET)
 task.spawn(function()
-    local colors = {Color3.fromRGB(0,0,0), Color3.fromRGB(40,0,0), Color3.fromRGB(15,0,0)}
+    local colors = {Color3.fromRGB(0,0,0), Color3.fromRGB(45,0,0), Color3.fromRGB(20,0,0)}
     while hijackGui.Parent do
         bg.BackgroundColor3 = colors[math.random(1, #colors)]
-        task.wait(0.03) -- Makin kecil angkanya makin kenceng kedipnya
+        task.wait(0.03)
     end
 end)
 
@@ -35,15 +34,14 @@ msg.Font = Enum.Font.GothamBold
 msg.TextSize = 35
 msg.TextWrapped = true
 
--- TOMBOL KELUAR DI POJOK KANAN (TETEP KECIL BIAR KASIAN)
 local exitBtn = Instance.new("TextButton", bg)
-exitBtn.Size = UDim2.new(0, 150, 0, 40)
-exitBtn.Position = UDim2.new(1, -160, 1, -50) 
-exitBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-exitBtn.Text = "KELUAR SEKARANG"
-exitBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+exitBtn.Size = UDim2.new(0, 200, 0, 45)
+exitBtn.Position = UDim2.new(1, -210, 1, -60) 
+exitBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+exitBtn.Text = "CLOSE ROBLOX SEKARANG"
+exitBtn.TextColor3 = Color3.fromRGB(220, 220, 220)
 exitBtn.Font = Enum.Font.GothamBold
-exitBtn.TextSize = 12
+exitBtn.TextSize = 11
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 
 exitBtn.MouseButton1Click:Connect(function()
@@ -52,8 +50,9 @@ end)
 
 -- -- 2. MENU UTAMA (UBY GOAT CLEAN) -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatCleanFinal"
+screenGui.Name = "UbyGoatFinalSystem"
 screenGui.ResetOnSpawn = false
+screenGui.Enabled = true -- Default kebuka pas awal
 
 local main = Instance.new("Frame", screenGui)
 main.Size = UDim2.new(0, 220, 0, 320)
@@ -63,7 +62,18 @@ main.Active = true
 main.Draggable = true 
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
--- JUDUL
+-- TOMBOL X (TETEP ADA BUAT NUTUP PERMANEN)
+local closeBtn = Instance.new("TextButton", main)
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 5)
+closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.new(1, 1, 1)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 14
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 5)
+closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
+
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 40)
 title.Position = UDim2.new(0, 0, 0.1, 0)
@@ -73,7 +83,7 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
--- -- 3. LOGIC LISSPLOIT & SHORTCUT L -- --
+-- -- 3. LOGIC LISSPLOIT & SHORTCUTS -- --
 _G.HitboxStatus = false
 _G.HTrans = 0.7
 
@@ -92,7 +102,7 @@ local function toggleYahayuk()
     end
 end
 
--- BUTTON YAHAYUK (CLEAN)
+-- Tombol Yahayuk
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Name = "YahayukBtn"
 btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
@@ -105,7 +115,7 @@ btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
 
--- BUTTON BALAPAN (CLEAN)
+-- Tombol Balapan
 local btnBalapan = Instance.new("TextButton", main)
 btnBalapan.Size = UDim2.new(0, 180, 0, 45)
 btnBalapan.Position = UDim2.new(0.5, -90, 0.7, 0)
@@ -120,12 +130,22 @@ btnBalapan.MouseButton1Click:Connect(function()
     if _G.HTrans > 1 then _G.HTrans = 0 end 
 end)
 
--- SHORTCUT L
+-- SISTEM PINTASAN KEYBOARD
 userInputService.InputBegan:Connect(function(input, gp) 
-    if not gp and input.KeyCode == Enum.KeyCode.L then toggleYahayuk() end 
+    if gp then return end -- Jangan jalan kalo lagi ngetik di chat
+    
+    -- Pintasan K: Buka/Tutup Menu
+    if input.KeyCode == Enum.KeyCode.K then
+        screenGui.Enabled = not screenGui.Enabled
+    end
+    
+    -- Pintasan L: Aktifin/Matiin Fitur
+    if input.KeyCode == Enum.KeyCode.L then
+        toggleYahayuk()
+    end
 end)
 
--- CORE ENGINE
+-- ENGINE
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do

@@ -1,5 +1,5 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- FIX: BENER-BENER MATIKAN HITBOX EDITION
+-- FIX: DADA TARGET & REAL-TIME (CLEAN OFF MODE)
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -7,18 +7,15 @@ local userInputService = game:GetService("UserInputService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatAntiStuckFix2"
+screenGui.Name = "UbyGoatDadaFixFinal"
 screenGui.ResetOnSpawn = false
-screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local main = Instance.new("Frame", screenGui)
 main.Size = UDim2.new(0, 220, 0, 320)
 main.Position = UDim2.new(0.1, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-main.BorderSizePixel = 0
 main.Active = true
 main.Draggable = true 
-main.ZIndex = 5
 
 local corner = Instance.new("UICorner", main)
 corner.CornerRadius = UDim.new(0, 15)
@@ -32,21 +29,15 @@ closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.TextSize = 20
-closeBtn.ZIndex = 10
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
 
 closeBtn.MouseButton1Click:Connect(function()
+    _G.HitboxStatus = false 
+    task.wait(0.1)
     screenGui:Destroy()
 end)
 
--- HIDE/SHOW PAKE TOMBOL "K"
-userInputService.InputBegan:Connect(function(input, gpe)
-    if not gpe and input.KeyCode == Enum.KeyCode.K then
-        main.Visible = not main.Visible
-    end
-end)
-
--- JUDUL: UBY GOAT
+-- JUDUL
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 25)
 title.Position = UDim2.new(0, 0, 0.25, 0)
@@ -55,10 +46,8 @@ title.TextColor3 = Color3.fromRGB(255, 115, 0)
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
-title.ZIndex = 6
 title.Parent = main
 
--- SUB JUDUL: SUPERRR FAMS
 local sub = Instance.new("TextLabel", main)
 sub.Size = UDim2.new(1, 0, 0, 20)
 sub.Position = UDim2.new(0, 0, 0.35, 0)
@@ -67,14 +56,12 @@ sub.TextColor3 = Color3.new(1, 1, 1)
 sub.BackgroundTransparency = 1
 sub.Font = Enum.Font.GothamMedium
 sub.TextSize = 14
-sub.ZIndex = 6
 sub.Parent = main
 
--- -- VARIABEL KONTROL (ON/OFF) -- --
-_G.HitboxStatus = false -- Mulai dari OFF
+-- -- VARIABEL -- --
+_G.HitboxStatus = false
 _G.HTrans = 0.5
 
--- FUNGSI TOMBOL
 local function createBtn(name, pos, callback)
     local btn = Instance.new("TextButton", main)
     btn.Size = UDim2.new(0, 180, 0, 45)
@@ -84,49 +71,43 @@ local function createBtn(name, pos, callback)
     btn.TextColor3 = Color3.new(1, 1, 1)
     btn.Font = Enum.Font.GothamBold
     btn.TextSize = 12
-    btn.ZIndex = 7
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
     btn.MouseButton1Click:Connect(callback)
 end
 
--- FITUR: AUTO WALK YAHAYUK (ON/OFF TOTAL)
 createBtn("AUTO WALK YAHAYUK", UDim2.new(0.1, 0, 0.55, 0), function()
-    _G.HitboxStatus = not _G.HitboxStatus -- Toggle Status
-    print("Status Hitbox: "..tostring(_G.HitboxStatus))
+    _G.HitboxStatus = not _G.HitboxStatus
 end)
 
--- FITUR: AUTO WALK BALAPAN (GANTI TRANSPARANSI)
 createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
     _G.HTrans = _G.HTrans + 0.2
     if _G.HTrans > 1 then _G.HTrans = 0 end
 end)
 
--- -- LOOP HITBOX ANTI-STUCK (BENERAN MATI) -- --
+-- -- LOOP HITBOX REAL-TIME -- --
 runService.RenderStepped:Connect(function()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
             local hrp = p.Character.HumanoidRootPart
             
-            -- Settingan Inti Biar Gak Nyangkut (ALWAYS FALSE)
-            hrp.CanCollide = false 
-            hrp.CanTouch = false   
-            hrp.CanQuery = true    
-            
-            if _G.HitboxStatus == true then
-                -- ON: Size 10 (Neon Oranye)
+            if _G.HitboxStatus then
+                -- MODE ON: Dada Gede Oranye Neon
                 hrp.Size = Vector3.new(10, 10, 10)
                 hrp.Transparency = _G.HTrans
-                hrp.Massless = true    
-                hrp.Material = Enum.Material.Neon
                 hrp.BrickColor = BrickColor.new("Deep orange")
+                hrp.Material = Enum.Material.Neon
+                hrp.CanCollide = false
+                hrp.CanTouch = false 
+                hrp.CanQuery = true
+                hrp.Massless = true
             else
-                -- OFF TOTAL: BALIK KE GAME NORMAL (Size 2, Material Plastic, No Neon)
+                -- MODE OFF: BENER-BENER ILANG & GA ADA PUTIH-PUTIH
                 hrp.Size = Vector3.new(2, 2, 2)
-                hrp.Transparency = 0 -- Default
-                hrp.Massless = false    -- Default
-                hrp.Material = Enum.Material.Plastic -- HAPUS EFEK NEON
-                -- HAPUS WARNA ORANYE JRENG
-                hrp.Color = Color3.new(1, 1, 1) -- Balik ke Putih/Default Part
+                hrp.Transparency = 1 -- INI BIAR KOTAKNYA GA KELIHATAN SAMA SEKALI
+                hrp.Material = Enum.Material.Plastic
+                hrp.CanCollide = false
+                hrp.CanTouch = false
+                hrp.CanQuery = false
             end
         end
     end

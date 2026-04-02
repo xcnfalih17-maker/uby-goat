@@ -1,14 +1,16 @@
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
+local userInputService = game:GetService("UserInputService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatSuperrrFix"
+screenGui.Name = "UbyGoatSuperrrFinal"
+screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
-main.Size = UDim2.new(0, 220, 0, 310)
+main.Size = UDim2.new(0, 220, 0, 320)
 main.Position = UDim2.new(0.1, 0, 0.4, 0)
-main.BackgroundColor3 = Color3.fromRGB(10, 10, 10) -- Hitam lebih solid
+main.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 main.BorderSizePixel = 0
 main.Active = true
 main.Draggable = true 
@@ -16,18 +18,39 @@ main.Draggable = true
 local corner = Instance.new("UICorner", main)
 corner.CornerRadius = UDim.new(0, 15)
 
+-- TOMBOL CLOSE [X]
+local closeBtn = Instance.new("TextButton", main)
+closeBtn.Size = UDim2.new(0, 30, 0, 30)
+closeBtn.Position = UDim2.new(1, -35, 0, 5)
+closeBtn.BackgroundTransparency = 1
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(255, 0, 0) -- Warna Merah biar jelas
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 18
+
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy() -- Ngilangin total menunya
+end)
+
+-- FITUR HIDE/SHOW PAKE TOMBOL "K"
+userInputService.InputBegan:Connect(function(input, gpe)
+    if not gpe and input.KeyCode == Enum.KeyCode.K then
+        main.Visible = not main.Visible
+    end
+end)
+
 -- LOGO SUPERRR FAMS
 local logo = Instance.new("ImageLabel", main)
-logo.Size = UDim2.new(0, 130, 0, 130)
-logo.Position = UDim2.new(0.5, -65, 0.05, 0)
+logo.Size = UDim2.new(0, 120, 0, 120)
+logo.Position = UDim2.new(0.5, -60, 0.05, 0)
 logo.BackgroundTransparency = 1
-logo.Image = "rbxassetid://74981978499733" -- ID Lu bro
+logo.Image = "rbxassetid://74981978499733" 
 logo.Parent = main
 
--- JUDUL: UBY GOAT (Warna Oren)
+-- JUDUL: UBY GOAT
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 25)
-title.Position = UDim2.new(0, 0, 0.48, 0)
+title.Position = UDim2.new(0, 0, 0.45, 0)
 title.Text = "UBY GOAT"
 title.TextColor3 = Color3.fromRGB(255, 115, 0) 
 title.BackgroundTransparency = 1
@@ -35,16 +58,16 @@ title.Font = Enum.Font.GothamBold
 title.TextSize = 22
 title.Parent = main
 
--- SUB JUDUL: SUPERRR FAMS
-local subTitle = Instance.new("TextLabel", main)
-subTitle.Size = UDim2.new(1, 0, 0, 20)
-subTitle.Position = UDim2.new(0, 0, 0.55, 0)
-subTitle.Text = "SUPERRR FAMS" -- UDAH FIX BRO!
-subTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-subTitle.BackgroundTransparency = 1
-subTitle.Font = Enum.Font.GothamMedium
-subTitle.TextSize = 14
-subTitle.Parent = main
+-- INFO TOMBOL HIDE
+local info = Instance.new("TextLabel", main)
+info.Size = UDim2.new(1, 0, 0, 15)
+info.Position = UDim2.new(0, 0, 0.52, 0)
+info.Text = "Tekan 'K' buat Hide Menu"
+info.TextColor3 = Color3.fromRGB(200, 200, 200)
+info.BackgroundTransparency = 1
+info.Font = Enum.Font.Gotham
+info.TextSize = 10
+info.Parent = main
 
 -- -- VARIABEL KONTROL -- --
 _G.HSize = 2
@@ -61,17 +84,14 @@ local function createBtn(name, pos, callback)
     btn.Font = Enum.Font.GothamBold
     btn.TextSize = 13
     local bCorner = Instance.new("UICorner", btn)
-    
     btn.MouseButton1Click:Connect(callback)
 end
 
--- Tombol Ukuran
 createBtn("GANTI UKURAN", UDim2.new(0.1, 0, 0.65, 0), function()
     _G.HSize = _G.HSize + 10
     if _G.HSize > 60 then _G.HSize = 2 end
 end)
 
--- Tombol Transparansi
 createBtn("GANTI TRANSPARAN", UDim2.new(0.1, 0, 0.82, 0), function()
     _G.HTrans = _G.HTrans + 0.2
     if _G.HTrans > 1 then _G.HTrans = 0 end
@@ -91,3 +111,4 @@ runService.RenderStepped:Connect(function()
         end
     end
 end)
+

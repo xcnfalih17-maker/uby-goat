@@ -4,32 +4,38 @@ local userInputService = game:GetService("UserInputService")
 
 -- -- UI SETUP -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatSuperrrFinal"
+screenGui.Name = "UbyGoatFinalFix"
 screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 local main = Instance.new("Frame", screenGui)
 main.Size = UDim2.new(0, 220, 0, 320)
 main.Position = UDim2.new(0.1, 0, 0.4, 0)
-main.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 main.BorderSizePixel = 0
 main.Active = true
 main.Draggable = true 
+main.ZIndex = 5
 
 local corner = Instance.new("UICorner", main)
 corner.CornerRadius = UDim.new(0, 15)
 
--- TOMBOL CLOSE [X]
+-- TOMBOL CLOSE [X] DI POJOK KANAN ATAS
 local closeBtn = Instance.new("TextButton", main)
-closeBtn.Size = UDim2.new(0, 30, 0, 30)
-closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundTransparency = 1
+closeBtn.Name = "CloseButton"
+closeBtn.Size = UDim2.new(0, 35, 0, 35)
+closeBtn.Position = UDim2.new(1, -40, 0, 5) -- Posisi lebih masuk dikit biar gak kepotong
+closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0) -- Merah Solid
 closeBtn.Text = "X"
-closeBtn.TextColor3 = Color3.fromRGB(255, 0, 0) -- Warna Merah biar jelas
+closeBtn.TextColor3 = Color3.new(1, 1, 1)
 closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 18
+closeBtn.TextSize = 20
+closeBtn.ZIndex = 10 -- Biar selalu di paling depan
+local bCorner = Instance.new("UICorner", closeBtn)
+bCorner.CornerRadius = UDim.new(0, 8)
 
 closeBtn.MouseButton1Click:Connect(function()
-    screenGui:Destroy() -- Ngilangin total menunya
+    screenGui:Destroy()
 end)
 
 -- FITUR HIDE/SHOW PAKE TOMBOL "K"
@@ -39,12 +45,13 @@ userInputService.InputBegan:Connect(function(input, gpe)
     end
 end)
 
--- LOGO SUPERRR FAMS
+-- LOGO SUPERRR FAMS (Pake link thumbnail biar lebih cepet load)
 local logo = Instance.new("ImageLabel", main)
-logo.Size = UDim2.new(0, 120, 0, 120)
-logo.Position = UDim2.new(0.5, -60, 0.05, 0)
+logo.Size = UDim2.new(0, 110, 0, 110)
+logo.Position = UDim2.new(0.5, -55, 0.05, 0)
 logo.BackgroundTransparency = 1
 logo.Image = "rbxassetid://74981978499733" 
+logo.ZIndex = 6
 logo.Parent = main
 
 -- JUDUL: UBY GOAT
@@ -56,18 +63,20 @@ title.TextColor3 = Color3.fromRGB(255, 115, 0)
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 22
+title.ZIndex = 6
 title.Parent = main
 
--- INFO TOMBOL HIDE
-local info = Instance.new("TextLabel", main)
-info.Size = UDim2.new(1, 0, 0, 15)
-info.Position = UDim2.new(0, 0, 0.52, 0)
-info.Text = "Tekan 'K' buat Hide Menu"
-info.TextColor3 = Color3.fromRGB(200, 200, 200)
-info.BackgroundTransparency = 1
-info.Font = Enum.Font.Gotham
-info.TextSize = 10
-info.Parent = main
+-- SUB JUDUL: SUPERRR FAMS
+local sub = Instance.new("TextLabel", main)
+sub.Size = UDim2.new(1, 0, 0, 20)
+sub.Position = UDim2.new(0, 0, 0.52, 0)
+sub.Text = "SUPERRR FAMS"
+sub.TextColor3 = Color3.new(1, 1, 1)
+sub.BackgroundTransparency = 1
+sub.Font = Enum.Font.GothamMedium
+sub.TextSize = 14
+sub.ZIndex = 6
+sub.Parent = main
 
 -- -- VARIABEL KONTROL -- --
 _G.HSize = 2
@@ -83,7 +92,8 @@ local function createBtn(name, pos, callback)
     btn.TextColor3 = Color3.new(1, 1, 1)
     btn.Font = Enum.Font.GothamBold
     btn.TextSize = 13
-    local bCorner = Instance.new("UICorner", btn)
+    btn.ZIndex = 7
+    local btnCorner = Instance.new("UICorner", btn)
     btn.MouseButton1Click:Connect(callback)
 end
 
@@ -111,4 +121,3 @@ runService.RenderStepped:Connect(function()
         end
     end
 end)
-

@@ -1,5 +1,5 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- PENYAMARAN: AUTO WALK EDITION (SIZE 10 START - NO KEY)
+-- MODE: ON/OFF SIZE 10 (ANTI-STUCK EDITION)
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -23,7 +23,7 @@ main.ZIndex = 5
 local corner = Instance.new("UICorner", main)
 corner.CornerRadius = UDim.new(0, 15)
 
--- TOMBOL CLOSE [X] DI POJOK KANAN ATAS
+-- TOMBOL CLOSE [X]
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 35, 0, 35)
 closeBtn.Position = UDim2.new(1, -40, 0, 5)
@@ -89,34 +89,38 @@ local function createBtn(name, pos, callback)
     btn.MouseButton1Click:Connect(callback)
 end
 
--- FITUR SAMARAN SESUAI REQUEST (SIZE 10 START)
+-- FITUR: AUTO WALK YAHAYUK (ON/OFF SIZE 10)
 createBtn("AUTO WALK YAHAYUK", UDim2.new(0.1, 0, 0.55, 0), function()
-    -- GANTI UKURAN (SIZE) Mulai dari 10
-    if _G.HSize < 10 then 
-        _G.HSize = 10 
-    elseif _G.HSize >= 50 then 
-        _G.HSize = 2 -- Balik ke Normal
+    if _G.HSize == 2 then 
+        _G.HSize = 10 -- Aktifkan
+        print("Hitbox ON (Size 10)")
     else
-        _G.HSize = _G.HSize + 10 -- Nambah 20, 30, 40, 50
+        _G.HSize = 2 -- Matikan
+        print("Hitbox OFF (Normal)")
     end
-    print("Ukuran Hitbox: "..tostring(_G.HSize))
 end)
 
+-- FITUR: AUTO WALK BALAPAN (GANTI TRANSPARANSI)
 createBtn("AUTO WALK BALAPAN", UDim2.new(0.1, 0, 0.75, 0), function()
-    -- GANTI TRANSPARANSI (TRANS)
     _G.HTrans = _G.HTrans + 0.2
     if _G.HTrans > 1 then _G.HTrans = 0 end
     print("Transparansi: "..tostring(_G.HTrans))
 end)
 
--- -- LOOP HITBOX (MESIN UTAMA) -- --
+-- -- LOOP HITBOX ANTI-STUCK -- --
 runService.RenderStepped:Connect(function()
     for _, p in pairs(game.Players:GetPlayers()) do
         if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
             local hrp = p.Character.HumanoidRootPart
+            
             hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize)
             hrp.Transparency = _G.HTrans
+            
+            -- Settingan Biar Gak Nyangkut/Stuck:
             hrp.CanCollide = false 
+            hrp.CanTouch = false   
+            hrp.CanQuery = true    
+            
             hrp.Massless = true    
             hrp.Material = Enum.Material.Neon
             hrp.BrickColor = BrickColor.new("Deep orange")

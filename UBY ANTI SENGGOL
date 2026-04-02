@@ -1,0 +1,93 @@
+local player = game.Players.LocalPlayer
+local runService = game:GetService("RunService")
+
+-- -- UI SETUP -- --
+local screenGui = Instance.new("ScreenGui", player.PlayerGui)
+screenGui.Name = "UbyGoatSuperrrFix"
+
+local main = Instance.new("Frame", screenGui)
+main.Size = UDim2.new(0, 220, 0, 310)
+main.Position = UDim2.new(0.1, 0, 0.4, 0)
+main.BackgroundColor3 = Color3.fromRGB(10, 10, 10) -- Hitam lebih solid
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true 
+
+local corner = Instance.new("UICorner", main)
+corner.CornerRadius = UDim.new(0, 15)
+
+-- LOGO SUPERRR FAMS
+local logo = Instance.new("ImageLabel", main)
+logo.Size = UDim2.new(0, 130, 0, 130)
+logo.Position = UDim2.new(0.5, -65, 0.05, 0)
+logo.BackgroundTransparency = 1
+logo.Image = "rbxassetid://74981978499733" -- ID Lu bro
+logo.Parent = main
+
+-- JUDUL: UBY GOAT (Warna Oren)
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 25)
+title.Position = UDim2.new(0, 0, 0.48, 0)
+title.Text = "UBY GOAT"
+title.TextColor3 = Color3.fromRGB(255, 115, 0) 
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.Parent = main
+
+-- SUB JUDUL: SUPERRR FAMS
+local subTitle = Instance.new("TextLabel", main)
+subTitle.Size = UDim2.new(1, 0, 0, 20)
+subTitle.Position = UDim2.new(0, 0, 0.55, 0)
+subTitle.Text = "SUPERRR FAMS" -- UDAH FIX BRO!
+subTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+subTitle.BackgroundTransparency = 1
+subTitle.Font = Enum.Font.GothamMedium
+subTitle.TextSize = 14
+subTitle.Parent = main
+
+-- -- VARIABEL KONTROL -- --
+_G.HSize = 2
+_G.HTrans = 0.5
+
+-- FUNGSI TOMBOL
+local function createBtn(name, pos, callback)
+    local btn = Instance.new("TextButton", main)
+    btn.Size = UDim2.new(0, 180, 0, 35)
+    btn.Position = pos
+    btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
+    btn.Text = name
+    btn.TextColor3 = Color3.new(1, 1, 1)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 13
+    local bCorner = Instance.new("UICorner", btn)
+    
+    btn.MouseButton1Click:Connect(callback)
+end
+
+-- Tombol Ukuran
+createBtn("GANTI UKURAN", UDim2.new(0.1, 0, 0.65, 0), function()
+    _G.HSize = _G.HSize + 10
+    if _G.HSize > 60 then _G.HSize = 2 end
+end)
+
+-- Tombol Transparansi
+createBtn("GANTI TRANSPARAN", UDim2.new(0.1, 0, 0.82, 0), function()
+    _G.HTrans = _G.HTrans + 0.2
+    if _G.HTrans > 1 then _G.HTrans = 0 end
+end)
+
+-- -- LOOP HITBOX -- --
+runService.RenderStepped:Connect(function()
+    for _, p in pairs(game.Players:GetPlayers()) do
+        if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+            local hrp = p.Character.HumanoidRootPart
+            hrp.Size = Vector3.new(_G.HSize, _G.HSize, _G.HSize)
+            hrp.Transparency = _G.HTrans
+            hrp.CanCollide = false 
+            hrp.Massless = true    
+            hrp.Material = Enum.Material.Neon
+            hrp.BrickColor = BrickColor.new("Deep orange")
+        end
+    end
+end)

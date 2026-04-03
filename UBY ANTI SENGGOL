@@ -1,11 +1,11 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | TOGGLE MENU: K | TOGGLE FEAT: L | ADDON: UBY IMUT
+-- ENGINE: LISSPLOIT | HITBOX: TOGGLE ON/OFF | GHOST MODE: ACTIVE | SHORTCUT: K & L
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 
--- -- 1. TOTAL GLITCH HIJACK (KLIK POJOK KANAN BAWAH) -- --
+-- -- 1. TROLL SCREEN (CLIK POJOK KANAN BAWAH) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
 hijackGui.Name = "UbyGoatPanicCloseFinal"
 hijackGui.DisplayOrder = 99999
@@ -42,25 +42,21 @@ exitBtn.TextColor3 = Color3.fromRGB(220, 220, 220)
 exitBtn.Font = Enum.Font.GothamBold
 exitBtn.TextSize = 11
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
+exitBtn.MouseButton1Click:Connect(function() hijackGui:Destroy() end)
 
-exitBtn.MouseButton1Click:Connect(function()
-    hijackGui:Destroy()
-end)
-
--- -- 2. MENU UTAMA (UBY GOAT FINAL) -- --
+-- -- 2. MENU UTAMA -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "UbyGoatSystemFinal"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
-main.Size = UDim2.new(0, 220, 0, 380) 
+main.Size = UDim2.new(0, 220, 0, 320) 
 main.Position = UDim2.new(0.1, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 main.Active = true
 main.Draggable = true 
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
--- TOMBOL X
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 25, 0, 25)
 closeBtn.Position = UDim2.new(1, -30, 0, 5)
@@ -81,73 +77,68 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
--- -- 3. FITUR BUTTONS -- --
+-- -- 3. LOGIC TOGGLE HITBOX -- --
 _G.HitboxStatus = false
-_G.HTrans = 0.7
 
-local function toggleYahayuk()
+local function toggleHitbox()
     _G.HitboxStatus = not _G.HitboxStatus
     local btn = main:FindFirstChild("YahayukBtn")
+    
     if _G.HitboxStatus then
-        if btn then btn.BackgroundColor3 = Color3.fromRGB(0, 180, 0) end
+        -- Kalo ON
+        if btn then 
+            btn.BackgroundColor3 = Color3.fromRGB(0, 180, 0) 
+            btn.Text = "HITBOX: ON (L)"
+        end
     else
-        if btn then btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0) end
+        -- Kalo OFF (Balikin Semua ke Normal)
+        if btn then 
+            btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0) 
+            btn.Text = "HITBOX: OFF (L)"
+        end
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function() v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) v.Character.HumanoidRootPart.Transparency = 1 end)
+                pcall(function() 
+                    v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) -- Balik Normal
+                    v.Character.HumanoidRootPart.Transparency = 1 -- Tetap Ghaib (Normal Roblox)
+                end)
             end
         end
     end
 end
 
--- Tombol 1: Yahayuk
+-- Tombol Hitbox
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Name = "YahayukBtn"
-btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
-btnYahayuk.Position = UDim2.new(0.5, -90, 0.25, 0)
+btnYahayuk.Size = UDim2.new(0, 180, 0, 50)
+btnYahayuk.Position = UDim2.new(0.5, -90, 0.3, 0)
 btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnYahayuk.Text = "AUTO WALK YAHAYUK"
+btnYahayuk.Text = "HITBOX: OFF (L)"
 btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
 btnYahayuk.Font = Enum.Font.GothamBold
 btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
-btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
+btnYahayuk.MouseButton1Click:Connect(toggleHitbox)
 
--- Tombol 2: Balapan
-local btnBalapan = Instance.new("TextButton", main)
-btnBalapan.Size = UDim2.new(0, 180, 0, 45)
-btnBalapan.Position = UDim2.new(0.5, -90, 0.42, 0)
-btnBalapan.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnBalapan.Text = "AUTO WALK BALAPAN"
-btnBalapan.TextColor3 = Color3.new(1, 1, 1)
-btnBalapan.Font = Enum.Font.GothamBold
-btnBalapan.TextSize = 10
-Instance.new("UICorner", btnBalapan).CornerRadius = UDim.new(0, 10)
-btnBalapan.MouseButton1Click:Connect(function() 
-    _G.HTrans = _G.HTrans + 0.2 
-    if _G.HTrans > 1 then _G.HTrans = 0 end 
-end)
-
--- Tombol 3: UBY IMUT (REQUEST LU BRO)
+-- Tombol UBY IMUT
 local btnAnim = Instance.new("TextButton", main)
-btnAnim.Size = UDim2.new(0, 180, 0, 45)
-btnAnim.Position = UDim2.new(0.5, -90, 0.59, 0)
+btnAnim.Size = UDim2.new(0, 180, 0, 50)
+btnAnim.Position = UDim2.new(0.5, -90, 0.55, 0)
 btnAnim.BackgroundColor3 = Color3.fromRGB(0, 100, 200) 
-btnAnim.Text = "UBY IMUT" -- Namanya udah ganti bro
+btnAnim.Text = "UBY IMUT"
 btnAnim.TextColor3 = Color3.new(1, 1, 1)
 btnAnim.Font = Enum.Font.GothamBold
 btnAnim.TextSize = 10
 Instance.new("UICorner", btnAnim).CornerRadius = UDim.new(0, 10)
-
 btnAnim.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
 end)
 
--- -- 4. SISTEM PINTASAN & ENGINE -- --
+-- -- 4. PINTASAN & CORE LOOP -- --
 userInputService.InputBegan:Connect(function(input, gp) 
     if gp then return end
     if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
-    if input.KeyCode == Enum.KeyCode.L then toggleYahayuk() end
+    if input.KeyCode == Enum.KeyCode.L then toggleHitbox() end
 end)
 
 runService.RenderStepped:Connect(function()
@@ -156,10 +147,8 @@ runService.RenderStepped:Connect(function()
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
                     local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(10, 10, 10)
-                    hrp.Transparency = _G.HTrans
-                    hrp.BrickColor = BrickColor.new("Really blue")
-                    hrp.Material = "Neon"
+                    hrp.Size = Vector3.new(10, 10, 10) 
+                    hrp.Transparency = 1 -- Ghaib Total
                     hrp.CanCollide = false
                 end)
             end

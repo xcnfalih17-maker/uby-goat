@@ -1,20 +1,20 @@
--- [[ UBY GOAT - ULTIMATE BELUT EDITION ]] --
--- TROLL: AUTO-RUN ON PROXIMITY | CLOSE: SECRET LEFT BOTTOM
+-- [[ UBY GOAT - CLOWN SAVAGE EDITION ]] --
+-- ENGINE: LISSPLOIT | TROLL: RUNNING BUTTON | CLOSE: BOTTOM LEFT SECRET (GHAIB)
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 
--- -- 1. SCREENTROLL PINK SAVAGE -- --
+-- -- 1. SCREENTROLL PINK (IDENTITAS SAKRAL + CLOWN) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
-hijackGui.Name = "UbyGoatBelutPink"
+hijackGui.Name = "UbyGoatClownTrap"
 hijackGui.DisplayOrder = 99999
 local bg = Instance.new("Frame", hijackGui)
 bg.Size = UDim2.new(1, 0, 1, 0)
 bg.BackgroundColor3 = Color3.fromRGB(255, 230, 240) 
 bg.Active = true
 
--- Efek Glitch Pink
+-- Efek Glitch Pink-Putih
 task.spawn(function()
     local colors = {Color3.fromRGB(255, 230, 240), Color3.fromRGB(255, 255, 255), Color3.fromRGB(255, 200, 220)}
     while hijackGui.Parent do bg.BackgroundColor3 = colors[math.random(1, #colors)] task.wait(0.15) end
@@ -24,56 +24,136 @@ local msg = Instance.new("TextLabel", bg)
 msg.Size = UDim2.new(0.8, 0, 0.4, 0)
 msg.Position = UDim2.new(0.1, 0, 0.3, 0)
 msg.BackgroundTransparency = 1
-msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT 🖕🖕🖕🖕\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
+-- NIH TEKS SAKRAL + EMOJI BADUT & TENGAH BRO!
+msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT 🤡🤡🖕🖕🖕\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
 msg.TextColor3 = Color3.fromRGB(255, 50, 130)
 msg.Font = Enum.Font.GothamBold
 msg.TextSize = 35
 msg.TextWrapped = true
 
--- -- TOMBOL RAHASIA (POJOK KIRI BAWAH - TETEP DI SINI) -- --
+-- -- TOMBOL RAHASIA (POJOK KIRI BAWAH - GHAIB) -- --
 local secretClose = Instance.new("TextButton", bg)
-secretClose.Size = UDim2.new(0, 150, 0, 100)
-secretClose.Position = UDim2.new(0, 0, 1, -100) -- POJOK KIRI BAWAH
-secretClose.BackgroundTransparency = 1 
+secretClose.Size = UDim2.new(0, 200, 0, 80)
+secretClose.Position = UDim2.new(0, 0, 1, -80) 
+secretClose.BackgroundTransparency = 1 -- GHAIB 100%
 secretClose.Text = "" 
 secretClose.ZIndex = 1 
 secretClose.MouseButton1Click:Connect(function()
     hijackGui:Destroy()
 end)
 
--- -- TOMBOL MENIPU (BELUT MODE) -- --
+-- -- TOMBOL MENIPU (START DI POJOK KIRI BAWAH) -- --
 local exitBtn = Instance.new("TextButton", bg)
 exitBtn.Size = UDim2.new(0, 180, 0, 45)
-exitBtn.Position = UDim2.new(0, 20, 1, -65) -- Start Kiri Bawah
+exitBtn.Position = UDim2.new(0, 20, 1, -65) 
 exitBtn.BackgroundColor3 = Color3.fromRGB(255, 120, 180)
 exitBtn.Text = "KELUAR SEKARANG" 
 exitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 exitBtn.Font = Enum.Font.GothamBold
 exitBtn.TextSize = 12
-exitBtn.ZIndex = 10 
+exitBtn.ZIndex = 2 
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 
--- LOGIKA BELUT: KABUR SEBELUM DISENTUH
-userInputService.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-        local mousePos = input.Position
-        local btnPos = exitBtn.AbsolutePosition
-        local btnSize = exitBtn.AbsoluteSize
-        
-        -- Cek jarak antara kursor/jari ke tengah tombol
-        local dist = (Vector2.new(mousePos.X, mousePos.Y) - (Vector2.new(btnPos.X, btnPos.Y) + btnSize/2)).Magnitude
-        
-        -- Kalau jarak kurang dari 100 pixel, kabur!
-        if dist < 100 then
-            exitBtn.Position = UDim2.new(math.random(10, 80)/100, 0, math.random(10, 80)/100, 0)
-            exitBtn.Text = "CATCH ME IF YOU CAN 🖕"
-        end
-    end
-end)
+-- Logika Tombol Lari
+local function runAway()
+    exitBtn.Position = UDim2.new(math.random(0.1, 0.8), 0, math.random(0.1, 0.8), 0)
+    exitBtn.Text = "GAK BISA DI KLIK 🤡"
+end
+exitBtn.MouseEnter:Connect(runAway)
+exitBtn.MouseButton1Down:Connect(runAway) -- Biar di HP juga lari pas di-tap
 
--- -- 2. MENU UTAMA (SISA SCRIPT TETEP SAMA) -- --
--- (Gua singkat ya bro biar nggak kepanjangan, intinya menu utama lu tetep jalan di balik layar)
+-- -- 2. MENU UTAMA (HITBOX 10 FIX) -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "UbyGoatPinkMenu"
 screenGui.ResetOnSpawn = false
--- ... (Logic menu, hitbox 10, dll tetep aman di sini) ...
+
+local main = Instance.new("Frame", screenGui)
+main.Size = UDim2.new(0, 220, 0, 320) 
+main.Position = UDim2.new(0.1, 0, 0.4, 0)
+main.BackgroundColor3 = Color3.fromRGB(255, 235, 245)
+main.Active = true
+main.Draggable = true 
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
+
+local closeBtn = Instance.new("TextButton", main)
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 5)
+closeBtn.BackgroundColor3 = Color3.fromRGB(255, 60, 120) 
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.new(1, 1, 1)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 14
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 5)
+closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
+
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0.05, 0)
+title.Text = "UBY GOAT"
+title.TextColor3 = Color3.fromRGB(255, 50, 130)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 24
+
+-- -- 3. FITUR CHEAT (TETEP SAMA & SILENT) -- --
+_G.HitboxStatus = false
+local function toggleYahayuk()
+    _G.HitboxStatus = not _G.HitboxStatus
+    local btn = main:FindFirstChild("YahayukBtn")
+    if _G.HitboxStatus then
+        if btn then btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) btn.Text = "YAHAYUK: ON" end
+    else
+        if btn then btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) btn.Text = "AUTO WALK YAHAYUK" end
+        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                pcall(function() v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) end)
+            end
+        end
+    end
+end
+
+local btnYahayuk = Instance.new("TextButton", main)
+btnYahayuk.Name = "YahayukBtn"
+btnYahayuk.Size = UDim2.new(0, 180, 0, 50)
+btnYahayuk.Position = UDim2.new(0.5, -90, 0.3, 0)
+btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 120, 180)
+btnYahayuk.Text = "AUTO WALK YAHAYUK"
+btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
+btnYahayuk.Font = Enum.Font.GothamBold
+btnYahayuk.TextSize = 10
+Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
+btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
+
+local btnAnim = Instance.new("TextButton", main)
+btnAnim.Size = UDim2.new(0, 180, 0, 50)
+btnAnim.Position = UDim2.new(0.5, -90, 0.55, 0)
+btnAnim.BackgroundColor3 = Color3.fromRGB(255, 160, 200)
+btnAnim.Text = "UBY IMUT"
+btnAnim.TextColor3 = Color3.new(1, 1, 1)
+btnAnim.Font = Enum.Font.GothamBold
+btnAnim.TextSize = 10
+Instance.new("UICorner", btnAnim).CornerRadius = UDim.new(0, 10)
+btnAnim.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
+end)
+
+-- -- 4. PINTASAN & ENGINE -- --
+userInputService.InputBegan:Connect(function(input, gp) 
+    if gp then return end
+    if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
+    if input.KeyCode == Enum.KeyCode.L then toggleYahayuk() end
+end)
+
+runService.RenderStepped:Connect(function()
+    if _G.HitboxStatus then
+        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                pcall(function()
+                    local hrp = v.Character.HumanoidRootPart
+                    hrp.Size = Vector3.new(10, 10, 10) 
+                    hrp.Transparency = 1 
+                end)
+            end
+        end
+    end
+end)

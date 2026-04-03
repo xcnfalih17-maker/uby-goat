@@ -1,10 +1,9 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | TOGGLE MENU: K | TOGGLE FEAT: L
+-- ENGINE: LISSPLOIT | TOGGLE MENU: K | TOGGLE FEAT: L | ADDON: UBY IMUT
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
-local soundService = game:GetService("SoundService")
 
 -- -- 1. TOTAL GLITCH HIJACK (KLIK POJOK KANAN BAWAH) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
@@ -48,21 +47,20 @@ exitBtn.MouseButton1Click:Connect(function()
     hijackGui:Destroy()
 end)
 
--- -- 2. MENU UTAMA (UBY GOAT CLEAN) -- --
+-- -- 2. MENU UTAMA (UBY GOAT FINAL) -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatFinalSystem"
+screenGui.Name = "UbyGoatSystemFinal"
 screenGui.ResetOnSpawn = false
-screenGui.Enabled = true -- Default kebuka pas awal
 
 local main = Instance.new("Frame", screenGui)
-main.Size = UDim2.new(0, 220, 0, 320)
+main.Size = UDim2.new(0, 220, 0, 380) 
 main.Position = UDim2.new(0.1, 0, 0.4, 0)
 main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 main.Active = true
 main.Draggable = true 
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
--- TOMBOL X (TETEP ADA BUAT NUTUP PERMANEN)
+-- TOMBOL X
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 25, 0, 25)
 closeBtn.Position = UDim2.new(1, -30, 0, 5)
@@ -76,14 +74,14 @@ closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
 
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 40)
-title.Position = UDim2.new(0, 0, 0.1, 0)
+title.Position = UDim2.new(0, 0, 0.05, 0)
 title.Text = "UBY GOAT"
 title.TextColor3 = Color3.fromRGB(255, 115, 0) 
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
--- -- 3. LOGIC LISSPLOIT & SHORTCUTS -- --
+-- -- 3. FITUR BUTTONS -- --
 _G.HitboxStatus = false
 _G.HTrans = 0.7
 
@@ -102,11 +100,11 @@ local function toggleYahayuk()
     end
 end
 
--- Tombol Yahayuk
+-- Tombol 1: Yahayuk
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Name = "YahayukBtn"
 btnYahayuk.Size = UDim2.new(0, 180, 0, 45)
-btnYahayuk.Position = UDim2.new(0.5, -90, 0.5, 0)
+btnYahayuk.Position = UDim2.new(0.5, -90, 0.25, 0)
 btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
 btnYahayuk.Text = "AUTO WALK YAHAYUK"
 btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
@@ -115,10 +113,10 @@ btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
 
--- Tombol Balapan
+-- Tombol 2: Balapan
 local btnBalapan = Instance.new("TextButton", main)
 btnBalapan.Size = UDim2.new(0, 180, 0, 45)
-btnBalapan.Position = UDim2.new(0.5, -90, 0.7, 0)
+btnBalapan.Position = UDim2.new(0.5, -90, 0.42, 0)
 btnBalapan.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
 btnBalapan.Text = "AUTO WALK BALAPAN"
 btnBalapan.TextColor3 = Color3.new(1, 1, 1)
@@ -130,22 +128,28 @@ btnBalapan.MouseButton1Click:Connect(function()
     if _G.HTrans > 1 then _G.HTrans = 0 end 
 end)
 
--- SISTEM PINTASAN KEYBOARD
-userInputService.InputBegan:Connect(function(input, gp) 
-    if gp then return end -- Jangan jalan kalo lagi ngetik di chat
-    
-    -- Pintasan K: Buka/Tutup Menu
-    if input.KeyCode == Enum.KeyCode.K then
-        screenGui.Enabled = not screenGui.Enabled
-    end
-    
-    -- Pintasan L: Aktifin/Matiin Fitur
-    if input.KeyCode == Enum.KeyCode.L then
-        toggleYahayuk()
-    end
+-- Tombol 3: UBY IMUT (REQUEST LU BRO)
+local btnAnim = Instance.new("TextButton", main)
+btnAnim.Size = UDim2.new(0, 180, 0, 45)
+btnAnim.Position = UDim2.new(0.5, -90, 0.59, 0)
+btnAnim.BackgroundColor3 = Color3.fromRGB(0, 100, 200) 
+btnAnim.Text = "UBY IMUT" -- Namanya udah ganti bro
+btnAnim.TextColor3 = Color3.new(1, 1, 1)
+btnAnim.Font = Enum.Font.GothamBold
+btnAnim.TextSize = 10
+Instance.new("UICorner", btnAnim).CornerRadius = UDim.new(0, 10)
+
+btnAnim.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
 end)
 
--- ENGINE
+-- -- 4. SISTEM PINTASAN & ENGINE -- --
+userInputService.InputBegan:Connect(function(input, gp) 
+    if gp then return end
+    if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
+    if input.KeyCode == Enum.KeyCode.L then toggleYahayuk() end
+end)
+
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do

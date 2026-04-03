@@ -1,20 +1,19 @@
--- [[ UBY GOAT - LEFT TRAP EDITION ]] --
--- ENGINE: LISSPLOIT | TROLL: RUNNING BUTTON | CLOSE: BOTTOM LEFT SECRET (GHAIB)
+-- [[ UBY GOAT - INFINITE CHASE EDITION ]] --
+-- ENGINE: LISSPLOIT | TROLL: NON-STOP RUNNING | CLOSE: SECRET LEFT BOTTOM
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 
--- -- 1. SCREENTROLL PINK (IDENTITAS SAKRAL) -- --
+-- -- 1. SCREENTROLL PINK SAVAGE -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
-hijackGui.Name = "UbyGoatPinkLeftTrap"
+hijackGui.Name = "UbyGoatInfinitePink"
 hijackGui.DisplayOrder = 99999
 local bg = Instance.new("Frame", hijackGui)
 bg.Size = UDim2.new(1, 0, 1, 0)
 bg.BackgroundColor3 = Color3.fromRGB(255, 230, 240) 
 bg.Active = true
 
--- Efek Glitch Pink-Putih
 task.spawn(function()
     local colors = {Color3.fromRGB(255, 230, 240), Color3.fromRGB(255, 255, 255), Color3.fromRGB(255, 200, 220)}
     while hijackGui.Parent do bg.BackgroundColor3 = colors[math.random(1, #colors)] task.wait(0.15) end
@@ -24,44 +23,48 @@ local msg = Instance.new("TextLabel", bg)
 msg.Size = UDim2.new(0.8, 0, 0.4, 0)
 msg.Position = UDim2.new(0.1, 0, 0.3, 0)
 msg.BackgroundTransparency = 1
-msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
+msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT 🖕🖕🖕🖕\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
 msg.TextColor3 = Color3.fromRGB(255, 50, 130)
 msg.Font = Enum.Font.GothamBold
 msg.TextSize = 35
 msg.TextWrapped = true
 
--- -- TOMBOL RAHASIA (POJOK KIRI BAWAH - GHAIB) -- --
--- Kita pasang ini di bawah biar lu tinggal klik pojok kiri bawah aja
+-- -- TOMBOL RAHASIA (POJOK KIRI BAWAH - TETEP DI SINI) -- --
 local secretClose = Instance.new("TextButton", bg)
-secretClose.Size = UDim2.new(0, 200, 0, 60)
-secretClose.Position = UDim2.new(0, 10, 1, -70) -- STAY DI POJOK KIRI BAWAH
-secretClose.BackgroundTransparency = 1 -- GHAIB 100%
+secretClose.Size = UDim2.new(0, 150, 0, 80)
+secretClose.Position = UDim2.new(0, 0, 1, -80) 
+secretClose.BackgroundTransparency = 1 
 secretClose.Text = "" 
-secretClose.ZIndex = 1 -- Di bawah tombol lari biar gak sengaja ke-klik korban
+secretClose.ZIndex = 1 
 secretClose.MouseButton1Click:Connect(function()
     hijackGui:Destroy()
 end)
 
--- -- TOMBOL MENIPU (START DI POJOK KIRI BAWAH JUGA) -- --
+-- -- TOMBOL MENIPU (KABUR TERUS-TERUSAN) -- --
 local exitBtn = Instance.new("TextButton", bg)
 exitBtn.Size = UDim2.new(0, 180, 0, 45)
-exitBtn.Position = UDim2.new(0, 20, 1, -65) -- SAMA-SAMA DI KIRI BAWAH
+exitBtn.Position = UDim2.new(0, 20, 1, -65) 
 exitBtn.BackgroundColor3 = Color3.fromRGB(255, 120, 180)
 exitBtn.Text = "KELUAR SEKARANG" 
 exitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 exitBtn.Font = Enum.Font.GothamBold
 exitBtn.TextSize = 12
-exitBtn.ZIndex = 2 -- Di atas biar korbannya nyasar ke sini dulu
+exitBtn.ZIndex = 10 -- Paling depan biar kelihatan
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 
--- Logika Tombol Lari
-exitBtn.MouseEnter:Connect(function()
-    -- Pas mouse korban mau nyentuh, tombol ini pindah acak
-    exitBtn.Position = UDim2.new(math.random(0.1, 0.8), 0, math.random(0.1, 0.8), 0)
-    exitBtn.Text = "GAK BISA DI KLIK WKWK"
-end)
+-- FUNGSI KABUR INFINITE (PC & HP)
+local function makeItRun()
+    -- Tombol bakal pindah ke posisi acak baru SETIAP KALI disentuh/didekati
+    local newX = math.random(5, 85) / 100
+    local newY = math.random(5, 85) / 100
+    exitBtn.Position = UDim2.new(newX, 0, newY, 0)
+    exitBtn.Text = "CATCH ME IF YOU CAN 🖕"
+end
 
--- -- 2. MENU UTAMA (HITBOX 10 FIX) -- --
+exitBtn.MouseEnter:Connect(makeItRun) -- Untuk PC (Mouse mendekat)
+exitBtn.MouseButton1Down:Connect(makeItRun) -- Untuk HP (Jari ngetap)
+
+-- -- 2. MENU UTAMA -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "UbyGoatPinkMenu"
 screenGui.ResetOnSpawn = false
@@ -94,7 +97,7 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
--- -- 3. FITUR CHEAT (TETEP SAMA & SILENT) -- --
+-- -- 3. FITUR CHEAT (HITBOX 10 GHAIB) -- --
 _G.HitboxStatus = false
 local function toggleYahayuk()
     _G.HitboxStatus = not _G.HitboxStatus

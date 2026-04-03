@@ -1,25 +1,25 @@
--- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | STATUS: GACOR | GHOST MODE: ACTIVE
+-- [[ UBY GOAT - CUTIE PINK EDITION ]] --
+-- ENGINE: LISSPLOIT | MODE: PINK CUTE | GHOST: ACTIVE | STYLE: SOFT
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 
--- -- 1. TROLL SCREEN (CLIK POJOK KANAN BAWAH) -- --
+-- -- 1. CUTIE PINK SCREENTROLL (KEDIP PINK-PUTIH) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
-hijackGui.Name = "UbyGoatPanicCloseFinal"
+hijackGui.Name = "UbyGoatPinkHijack"
 hijackGui.DisplayOrder = 99999
-
 local bg = Instance.new("Frame", hijackGui)
 bg.Size = UDim2.new(1, 0, 1, 0)
-bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+bg.BackgroundColor3 = Color3.fromRGB(255, 230, 240) -- Base Pink Muda banget
 bg.Active = true
 
+-- Efek Glitch Imut
 task.spawn(function()
-    local colors = {Color3.fromRGB(0,0,0), Color3.fromRGB(45,0,0), Color3.fromRGB(20,0,0)}
-    while hijackGui.Parent do
-        bg.BackgroundColor3 = colors[math.random(1, #colors)]
-        task.wait(0.03)
+    local colors = {Color3.fromRGB(255, 230, 240), Color3.fromRGB(255, 255, 255), Color3.fromRGB(255, 200, 220)}
+    while hijackGui.Parent do 
+        bg.BackgroundColor3 = colors[math.random(1, #colors)] 
+        task.wait(0.15) -- Lebih lambat dikit biar gak bikin pusing
     end
 end)
 
@@ -27,8 +27,8 @@ local msg = Instance.new("TextLabel", bg)
 msg.Size = UDim2.new(0.8, 0, 0.4, 0)
 msg.Position = UDim2.new(0.1, 0, 0.3, 0)
 msg.BackgroundTransparency = 1
-msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
-msg.TextColor3 = Color3.fromRGB(255, 0, 0)
+msg.Text = "PERANGKAT ANDA TELAH DI AMBIL ALIH\nBY UBY GOAT\n\nMainnya bersih ya cantiik wkwk <3"
+msg.TextColor3 = Color3.fromRGB(255, 80, 150) -- Teks Pink Gelap
 msg.Font = Enum.Font.GothamBold
 msg.TextSize = 35
 msg.TextWrapped = true
@@ -36,31 +36,32 @@ msg.TextWrapped = true
 local exitBtn = Instance.new("TextButton", bg)
 exitBtn.Size = UDim2.new(0, 200, 0, 45)
 exitBtn.Position = UDim2.new(1, -210, 1, -60) 
-exitBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-exitBtn.Text = "CLOSE ROBLOX SEKARANG"
-exitBtn.TextColor3 = Color3.fromRGB(220, 220, 220)
+exitBtn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) -- Pink Tombol
+exitBtn.Text = "MASUK KE MENU UTAMA" -- Ganti teks dikit biar imut
+exitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 exitBtn.Font = Enum.Font.GothamBold
 exitBtn.TextSize = 11
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 exitBtn.MouseButton1Click:Connect(function() hijackGui:Destroy() end)
 
--- -- 2. MENU UTAMA (UBY GOAT CLEAN) -- --
+-- -- 2. MENU UTAMA (IMUT ABIS) -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-screenGui.Name = "UbyGoatSystemFinal"
+screenGui.Name = "UbyGoatPinkMenu"
 screenGui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", screenGui)
 main.Size = UDim2.new(0, 220, 0, 320) 
 main.Position = UDim2.new(0.1, 0, 0.4, 0)
-main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+main.BackgroundColor3 = Color3.fromRGB(255, 235, 245) -- Background Menu Pink Pastel
 main.Active = true
 main.Draggable = true 
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 15)
 
+-- TOMBOL X (TETEP MERAH)
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 25, 0, 25)
 closeBtn.Position = UDim2.new(1, -30, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+closeBtn.BackgroundColor3 = Color3.fromRGB(255, 60, 120) -- Pink Kemerahan
 closeBtn.Text = "X"
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
 closeBtn.Font = Enum.Font.GothamBold
@@ -71,8 +72,8 @@ closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 40)
 title.Position = UDim2.new(0, 0, 0.05, 0)
-title.Text = "UBY GOAT"
-title.TextColor3 = Color3.fromRGB(255, 115, 0) 
+title.Text = "UBY GOAT <3"
+title.TextColor3 = Color3.fromRGB(255, 50, 130) -- Pink Gelap banget
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
@@ -86,44 +87,41 @@ local function toggleYahayuk()
     
     if _G.HitboxStatus then
         if btn then 
-            btn.BackgroundColor3 = Color3.fromRGB(0, 180, 0) 
-            btn.Text = "AUTO WALK YAHAYUK" -- Nama fix bro
+            btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) -- Ijo Imut (Kalo Aktif)
+            btn.Text = "YAHAYUK: ON"
         end
     else
         if btn then 
-            btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0) 
-            btn.Text = "AUTO WALK YAHAYUK" -- Nama fix bro
+            btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) -- Pink Tombol Biasa
+            btn.Text = "AUTO WALK YAHAYUK" 
         end
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function() 
-                    v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) 
-                    v.Character.HumanoidRootPart.Transparency = 1 
-                end)
+                pcall(function() v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) end)
             end
         end
     end
 end
 
--- Tombol Yahayuk (Nama Bersih)
+-- Tombol Yahayuk (Warna Pink)
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Name = "YahayukBtn"
 btnYahayuk.Size = UDim2.new(0, 180, 0, 50)
 btnYahayuk.Position = UDim2.new(0.5, -90, 0.3, 0)
-btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnYahayuk.Text = "AUTO WALK YAHAYUK" -- Shortcut diumpetin
+btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 120, 180) 
+btnYahayuk.Text = "AUTO WALK YAHAYUK" 
 btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
 btnYahayuk.Font = Enum.Font.GothamBold
 btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
 btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
 
--- Tombol UBY IMUT (Nama Bersih)
+-- Tombol UBY IMUT (Warna Pink juga)
 local btnAnim = Instance.new("TextButton", main)
 btnAnim.Size = UDim2.new(0, 180, 0, 50)
 btnAnim.Position = UDim2.new(0.5, -90, 0.55, 0)
-btnAnim.BackgroundColor3 = Color3.fromRGB(0, 100, 200) 
-btnAnim.Text = "UBY IMUT" -- Shortcut diumpetin
+btnAnim.BackgroundColor3 = Color3.fromRGB(255, 160, 200) -- Pink beda dikit biar gemes
+btnAnim.Text = "UBY IMUT <3"
 btnAnim.TextColor3 = Color3.new(1, 1, 1)
 btnAnim.Font = Enum.Font.GothamBold
 btnAnim.TextSize = 10
@@ -145,8 +143,8 @@ runService.RenderStepped:Connect(function()
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
                     local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(10, 10, 10) 
-                    hrp.Transparency = 1 
+                    hrp.Size = Vector3.new(10, 10, 10) -- Tetep Gajah
+                    hrp.Transparency = 1 -- Tetep Ghaib (Silent)
                     hrp.CanCollide = false
                 end)
             end

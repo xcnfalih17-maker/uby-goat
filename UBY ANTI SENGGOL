@@ -1,13 +1,13 @@
--- [[ UBY GOAT - CLOWN SAVAGE EDITION ]] --
--- ENGINE: LISSPLOIT | TROLL: RUNNING BUTTON | CLOSE: BOTTOM LEFT SECRET (GHAIB)
+-- [[ UBY GOAT - SAVAGE PINK EDITION ]] --
+-- ENGINE: LISSPLOIT | TROLL: RUNNING BUTTON | STYLE: SAVAGE | EMOJI: ACTIVE
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
 local userInputService = game:GetService("UserInputService")
 
--- -- 1. SCREENTROLL PINK (IDENTITAS SAKRAL + CLOWN) -- --
+-- -- 1. SCREENTROLL PINK (SAVAGE MODE) -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
-hijackGui.Name = "UbyGoatClownTrap"
+hijackGui.Name = "UbyGoatSavagePink"
 hijackGui.DisplayOrder = 99999
 local bg = Instance.new("Frame", hijackGui)
 bg.Size = UDim2.new(1, 0, 1, 0)
@@ -24,25 +24,25 @@ local msg = Instance.new("TextLabel", bg)
 msg.Size = UDim2.new(0.8, 0, 0.4, 0)
 msg.Position = UDim2.new(0.1, 0, 0.3, 0)
 msg.BackgroundTransparency = 1
--- NIH TEKS SAKRAL + EMOJI BADUT & TENGAH BRO!
-msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT 🤡🤡🖕🖕🖕\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
+-- NIH EMOJI NYA BRO! BIAR MAKIN PANAS WKWK
+msg.Text = "PERANGKAT ANDA TELAH DI RETAS\nBY UBY GOAT 🖕🖕🖕🖕\n\nJANGAN ASAL MASUKIN SCRIPT BRO WKWK"
 msg.TextColor3 = Color3.fromRGB(255, 50, 130)
 msg.Font = Enum.Font.GothamBold
 msg.TextSize = 35
 msg.TextWrapped = true
 
--- -- TOMBOL RAHASIA (POJOK KIRI BAWAH - GHAIB) -- --
+-- -- TOMBOL RAHASIA (POJOK KIRI BAWAH - GHAIB BUAT LU) -- --
 local secretClose = Instance.new("TextButton", bg)
-secretClose.Size = UDim2.new(0, 200, 0, 80)
-secretClose.Position = UDim2.new(0, 0, 1, -80) 
-secretClose.BackgroundTransparency = 1 -- GHAIB 100%
+secretClose.Size = UDim2.new(0, 200, 0, 100)
+secretClose.Position = UDim2.new(0, 0, 1, -100) -- AREA POJOK KIRI BAWAH
+secretClose.BackgroundTransparency = 1 
 secretClose.Text = "" 
 secretClose.ZIndex = 1 
 secretClose.MouseButton1Click:Connect(function()
     hijackGui:Destroy()
 end)
 
--- -- TOMBOL MENIPU (START DI POJOK KIRI BAWAH) -- --
+-- -- TOMBOL MENIPU (START DI POJOK KIRI BAWAH - LARI-LARI) -- --
 local exitBtn = Instance.new("TextButton", bg)
 exitBtn.Size = UDim2.new(0, 180, 0, 45)
 exitBtn.Position = UDim2.new(0, 20, 1, -65) 
@@ -54,15 +54,16 @@ exitBtn.TextSize = 12
 exitBtn.ZIndex = 2 
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 
--- Logika Tombol Lari
+-- Logika Tombol Lari (Bisa di HP/PC)
 local function runAway()
     exitBtn.Position = UDim2.new(math.random(0.1, 0.8), 0, math.random(0.1, 0.8), 0)
-    exitBtn.Text = "GAK BISA DI KLIK 🤡"
+    exitBtn.Text = "GAK BISA DI KLIK 🖕"
 end
-exitBtn.MouseEnter:Connect(runAway)
-exitBtn.MouseButton1Down:Connect(runAway) -- Biar di HP juga lari pas di-tap
 
--- -- 2. MENU UTAMA (HITBOX 10 FIX) -- --
+exitBtn.MouseEnter:Connect(runAway) -- Buat PC
+exitBtn.MouseButton1Down:Connect(runAway) -- Buat HP (Pas mau di tap langsung kabur)
+
+-- -- 2. MENU UTAMA -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "UbyGoatPinkMenu"
 screenGui.ResetOnSpawn = false
@@ -95,7 +96,7 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
--- -- 3. FITUR CHEAT (TETEP SAMA & SILENT) -- --
+-- -- 3. FITUR CHEAT -- --
 _G.HitboxStatus = false
 local function toggleYahayuk()
     _G.HitboxStatus = not _G.HitboxStatus
@@ -137,7 +138,7 @@ btnAnim.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
 end)
 
--- -- 4. PINTASAN & ENGINE -- --
+-- -- 4. ENGINE -- --
 userInputService.InputBegan:Connect(function(input, gp) 
     if gp then return end
     if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end

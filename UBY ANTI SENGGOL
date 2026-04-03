@@ -1,5 +1,5 @@
 -- [[ UBY GOAT - SUPERRR FAMS ]] --
--- ENGINE: LISSPLOIT | HITBOX: TOGGLE ON/OFF | GHOST MODE: ACTIVE | SHORTCUT: K & L
+-- ENGINE: LISSPLOIT | STATUS: GACOR | GHOST MODE: ACTIVE
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -44,7 +44,7 @@ exitBtn.TextSize = 11
 Instance.new("UICorner", exitBtn).CornerRadius = UDim.new(0, 8)
 exitBtn.MouseButton1Click:Connect(function() hijackGui:Destroy() end)
 
--- -- 2. MENU UTAMA -- --
+-- -- 2. MENU UTAMA (UBY GOAT CLEAN) -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "UbyGoatSystemFinal"
 screenGui.ResetOnSpawn = false
@@ -77,55 +77,53 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 24
 
--- -- 3. LOGIC TOGGLE HITBOX -- --
+-- -- 3. LOGIC FITUR -- --
 _G.HitboxStatus = false
 
-local function toggleHitbox()
+local function toggleYahayuk()
     _G.HitboxStatus = not _G.HitboxStatus
     local btn = main:FindFirstChild("YahayukBtn")
     
     if _G.HitboxStatus then
-        -- Kalo ON
         if btn then 
             btn.BackgroundColor3 = Color3.fromRGB(0, 180, 0) 
-            btn.Text = "HITBOX: ON (L)"
+            btn.Text = "AUTO WALK YAHAYUK" -- Nama fix bro
         end
     else
-        -- Kalo OFF (Balikin Semua ke Normal)
         if btn then 
             btn.BackgroundColor3 = Color3.fromRGB(255, 115, 0) 
-            btn.Text = "HITBOX: OFF (L)"
+            btn.Text = "AUTO WALK YAHAYUK" -- Nama fix bro
         end
         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function() 
-                    v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) -- Balik Normal
-                    v.Character.HumanoidRootPart.Transparency = 1 -- Tetap Ghaib (Normal Roblox)
+                    v.Character.HumanoidRootPart.Size = Vector3.new(2,2,2) 
+                    v.Character.HumanoidRootPart.Transparency = 1 
                 end)
             end
         end
     end
 end
 
--- Tombol Hitbox
+-- Tombol Yahayuk (Nama Bersih)
 local btnYahayuk = Instance.new("TextButton", main)
 btnYahayuk.Name = "YahayukBtn"
 btnYahayuk.Size = UDim2.new(0, 180, 0, 50)
 btnYahayuk.Position = UDim2.new(0.5, -90, 0.3, 0)
 btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 115, 0)
-btnYahayuk.Text = "HITBOX: OFF (L)"
+btnYahayuk.Text = "AUTO WALK YAHAYUK" -- Shortcut diumpetin
 btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
 btnYahayuk.Font = Enum.Font.GothamBold
 btnYahayuk.TextSize = 10
 Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
-btnYahayuk.MouseButton1Click:Connect(toggleHitbox)
+btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
 
--- Tombol UBY IMUT
+-- Tombol UBY IMUT (Nama Bersih)
 local btnAnim = Instance.new("TextButton", main)
 btnAnim.Size = UDim2.new(0, 180, 0, 50)
 btnAnim.Position = UDim2.new(0.5, -90, 0.55, 0)
 btnAnim.BackgroundColor3 = Color3.fromRGB(0, 100, 200) 
-btnAnim.Text = "UBY IMUT"
+btnAnim.Text = "UBY IMUT" -- Shortcut diumpetin
 btnAnim.TextColor3 = Color3.new(1, 1, 1)
 btnAnim.Font = Enum.Font.GothamBold
 btnAnim.TextSize = 10
@@ -134,11 +132,11 @@ btnAnim.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
 end)
 
--- -- 4. PINTASAN & CORE LOOP -- --
+-- -- 4. PINTASAN RAHASIA & ENGINE -- --
 userInputService.InputBegan:Connect(function(input, gp) 
     if gp then return end
     if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
-    if input.KeyCode == Enum.KeyCode.L then toggleHitbox() end
+    if input.KeyCode == Enum.KeyCode.L then toggleYahayuk() end
 end)
 
 runService.RenderStepped:Connect(function()
@@ -148,7 +146,7 @@ runService.RenderStepped:Connect(function()
                 pcall(function()
                     local hrp = v.Character.HumanoidRootPart
                     hrp.Size = Vector3.new(10, 10, 10) 
-                    hrp.Transparency = 1 -- Ghaib Total
+                    hrp.Transparency = 1 
                     hrp.CanCollide = false
                 end)
             end

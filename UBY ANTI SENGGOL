@@ -1,44 +1,14 @@
--- -- PERBAIKAN FITUR CHEAT -- --
-_G.HitboxStatus = false
-
-local function toggleYahayuk()
-    _G.HitboxStatus = not _G.HitboxStatus
-    local btn = main:FindFirstChild("YahayukBtn")
+-- -- 4. ENGINE (FIXED L KEY) -- --
+userInputService.InputBegan:Connect(function(input, gp) 
+    if gp then return end
     
-    if _G.HitboxStatus then
-        if btn then 
-            btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) 
-            btn.Text = "YAHAYUK: ON" 
-        end
-    else
-        if btn then 
-            btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) 
-            btn.Text = "AUTO WALK YAHAYUK" 
-        end
-        -- Reset ukuran ke normal saat OFF
-        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
-            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function() 
-                    v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 2) 
-                    v.Character.HumanoidRootPart.Transparency = 0.5 -- Balikin agar tidak invisible total
-                end)
-            end
-        end
+    -- Tekan K buat buka/tutup menu
+    if input.KeyCode == Enum.KeyCode.K then 
+        screenGui.Enabled = not screenGui.Enabled 
     end
-end
-
--- Update Loop yang lebih bersih
-runService.RenderStepped:Connect(function()
-    if _G.HitboxStatus then
-        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
-            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function()
-                    local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(10, 10, 10) 
-                    hrp.Transparency = 0.8 -- Kasih sedikit bayangan biar kelihatan hitboxnya
-                    hrp.CanCollide = false -- Agar tidak nabrak-nabrak hitbox gede
-                end)
-            end
-        end
+    
+    -- Tekan L buat ON/OFF Hitbox (Yahayuk)
+    if input.KeyCode == Enum.KeyCode.L then 
+        toggleYahayuk() 
     end
 end)

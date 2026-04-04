@@ -1,5 +1,5 @@
--- [[ UBY GOAT - RESET VERSION ]] --
--- CLEAN SCRIPT | NO EXTRA STUFF | FIXED L-KEY
+-- [[ UBY GOAT - LISFUS ENGINE EDITION ]] --
+-- STATUS: STABLE | ENGINE: LISFUS | L-KEY: SYNCED
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -8,7 +8,7 @@ local userInputService = game:GetService("UserInputService")
 -- -- 1. SCREENTROLL PINK -- --
 local hijackGui = Instance.new("ScreenGui", player.PlayerGui)
 hijackGui.Name = "UbyTroll"
-hijackGui.DisplayOrder = 999
+hijackGui.DisplayOrder = 99999
 local bg = Instance.new("Frame", hijackGui)
 bg.Size = UDim2.new(1, 0, 1, 0)
 bg.BackgroundColor3 = Color3.fromRGB(255, 230, 240) 
@@ -24,15 +24,12 @@ msg.Font = Enum.Font.GothamBold
 msg.TextSize = 30
 msg.TextWrapped = true
 
--- -- TOMBOL RAHASIA (POJOK KIRI BAWAH) -- --
 local secretBtn = Instance.new("TextButton", bg)
 secretBtn.Size = UDim2.new(0, 150, 0, 100)
 secretBtn.Position = UDim2.new(0, 0, 1, -100)
 secretBtn.BackgroundTransparency = 1
 secretBtn.Text = ""
-secretBtn.MouseButton1Click:Connect(function()
-    hijackGui:Destroy()
-end)
+secretBtn.MouseButton1Click:Connect(function() hijackGui:Destroy() end)
 
 -- -- 2. MENU UTAMA -- --
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
@@ -55,7 +52,7 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 22
 
--- -- 3. LOGIC HITBOX (ON/OFF) -- --
+-- -- 3. LISFUS ENGINE LOGIC -- --
 _G.HitboxStatus = false
 
 local function toggleHitbox()
@@ -66,8 +63,8 @@ local function toggleHitbox()
         if btn then btn.Text = "YAHAYUK: ON" btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) end
     else
         if btn then btn.Text = "AUTO WALK YAHAYUK" btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) end
-        -- RESET SEMUA JADI NORMAL
-        for _, v in pairs(game.Players:GetPlayers()) do
+        -- RESET TOTAL (Engine Lisfus Style)
+        for _, v in pairs(game:GetService("Players"):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
                     v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 2)
@@ -101,7 +98,7 @@ btnA.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
 end)
 
--- -- 4. ENGINE (L & K) -- --
+-- -- 4. PINTASAN KEYBOARD -- --
 userInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
@@ -110,7 +107,7 @@ end)
 
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
-        for _, v in pairs(game.Players:GetPlayers()) do
+        for _, v in pairs(game:GetService("Players"):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
                     v.Character.HumanoidRootPart.Size = Vector3.new(10, 10, 10)

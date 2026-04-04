@@ -1,14 +1,73 @@
+-- -- 3. FITUR CHEAT (FIXED LOGIC) -- --
+_G.HitboxStatus = false
+local function toggleYahayuk()
+    _G.HitboxStatus = not _G.HitboxStatus
+    local btn = main:FindFirstChild("YahayukBtn")
+    
+    if _G.HitboxStatus then
+        -- Kalo ON
+        if btn then 
+            btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) 
+            btn.Text = "YAHAYUK: ON" 
+        end
+    else
+        -- Kalo OFF (Reset Hitbox Musuh)
+        if btn then 
+            btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) 
+            btn.Text = "AUTO WALK YAHAYUK" 
+        end
+        
+        -- Loop paksa buat balikin ukuran hitbox ke normal (2,2,2)
+        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                pcall(function()
+                    v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 2)
+                    v.Character.HumanoidRootPart.Transparency = 0 -- Balikin keliatan lagi
+                end)
+            end
+        end
+    end
+end
+
+-- (Tombol Yahayuk & Animasi tetep sama kayak punya lu...)
+-- [[ TOMBOL NYA DISINI ]] --
+local btnYahayuk = Instance.new("TextButton", main)
+btnYahayuk.Name = "YahayukBtn"
+btnYahayuk.Size = UDim2.new(0, 180, 0, 50)
+btnYahayuk.Position = UDim2.new(0.5, -90, 0.3, 0)
+btnYahayuk.BackgroundColor3 = Color3.fromRGB(255, 120, 180)
+btnYahayuk.Text = "AUTO WALK YAHAYUK"
+btnYahayuk.TextColor3 = Color3.new(1, 1, 1)
+btnYahayuk.Font = Enum.Font.GothamBold
+btnYahayuk.TextSize = 10
+Instance.new("UICorner", btnYahayuk).CornerRadius = UDim.new(0, 10)
+btnYahayuk.MouseButton1Click:Connect(toggleYahayuk)
+
 -- -- 4. ENGINE (FIXED L KEY) -- --
 userInputService.InputBegan:Connect(function(input, gp) 
     if gp then return end
     
-    -- Tekan K buat buka/tutup menu
+    -- Tombol K buat Menu
     if input.KeyCode == Enum.KeyCode.K then 
         screenGui.Enabled = not screenGui.Enabled 
     end
     
-    -- Tekan L buat ON/OFF Hitbox (Yahayuk)
+    -- Tombol L buat ON/OFF (Sekarang udah sinkron)
     if input.KeyCode == Enum.KeyCode.L then 
         toggleYahayuk() 
+    end
+end)
+
+runService.RenderStepped:Connect(function()
+    if _G.HitboxStatus then
+        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                pcall(function()
+                    local hrp = v.Character.HumanoidRootPart
+                    hrp.Size = Vector3.new(10, 10, 10) 
+                    hrp.Transparency = 0.5 -- Kasih transparan dikit biar lu tau itu hitbox
+                end)
+            end
+        end
     end
 end)

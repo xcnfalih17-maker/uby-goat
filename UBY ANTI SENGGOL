@@ -1,5 +1,5 @@
--- [[ UBY GOAT - LISFUS ENGINE FULL ]] --
--- STATUS: FIX X & K | ENGINE: LISFUS | SYNCED
+-- [[ UBY GOAT - LISFUS ENGINE FULL FIX ]] --
+-- STATUS: TOTAL RESET ON OFF | X & K: ACTIVE
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -18,7 +18,7 @@ local msg = Instance.new("TextLabel", bg)
 msg.Size = UDim2.new(0.8, 0, 0.4, 0)
 msg.Position = UDim2.new(0.1, 0, 0.3, 0)
 msg.BackgroundTransparency = 1
-msg.Text = "PERANGKAT ANDA TELAH DI AMBIL ALIH\nBY UBY GOAT\n\nMampus kontol"
+msg.Text = "PERANGKAT ANDA TELAH DI AMBIL ALIH\nBY UBY GOAT\n\nMainnya bersih ya cantiik wkwk <3"
 msg.TextColor3 = Color3.fromRGB(255, 80, 150)
 msg.Font = Enum.Font.GothamBold
 msg.TextSize = 30
@@ -44,7 +44,6 @@ main.Active = true
 main.Draggable = true
 Instance.new("UICorner", main)
 
--- TOMBOL X (KASIH POSISI LAGI)
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 25, 0, 25)
 closeBtn.Position = UDim2.new(1, -30, 0, 5)
@@ -63,7 +62,7 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 22
 
--- -- 3. LISFUS ENGINE LOGIC -- --
+-- -- 3. LISFUS ENGINE (DEFAULT RESET LOGIC) -- --
 _G.HitboxStatus = false
 
 local function toggleHitbox()
@@ -74,11 +73,14 @@ local function toggleHitbox()
         if btn then btn.Text = "YAHAYUK: ON" btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) end
     else
         if btn then btn.Text = "AUTO WALK YAHAYUK" btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) end
+        -- BALIKIN KE POSISI DEFAULT TOTAL --
         for _, v in pairs(game:GetService("Players"):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
-                    v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 2)
-                    v.Character.HumanoidRootPart.Transparency = 0
+                    local hrp = v.Character.HumanoidRootPart
+                    hrp.Size = Vector3.new(2, 2, 2) -- Default Roblox
+                    hrp.Transparency = 0 -- Balikin badan kelihatan
+                    hrp.CanCollide = true -- Bisa ditabrak lagi
                 end)
             end
         end
@@ -118,4 +120,14 @@ end)
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-            if v ~= player and v.Character and v
+            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                pcall(function()
+                    local hrp = v.Character.HumanoidRootPart
+                    hrp.Size = Vector3.new(10, 10, 10)
+                    hrp.Transparency = 1
+                    hrp.CanCollide = false
+                end)
+            end
+        end
+    end
+end)

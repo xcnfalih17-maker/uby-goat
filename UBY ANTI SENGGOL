@@ -1,5 +1,5 @@
--- [[ UBY GOAT - LISFUS ENGINE EDITION ]] --
--- STATUS: STABLE | ENGINE: LISFUS | L-KEY: SYNCED
+-- [[ UBY GOAT - LISFUS ENGINE FULL ]] --
+-- STATUS: FIX X & K | ENGINE: LISFUS | SYNCED
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -44,6 +44,17 @@ main.Active = true
 main.Draggable = true
 Instance.new("UICorner", main)
 
+-- TOMBOL X (KASIH POSISI LAGI)
+local closeBtn = Instance.new("TextButton", main)
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 5)
+closeBtn.BackgroundColor3 = Color3.fromRGB(255, 60, 120)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.new(1, 1, 1)
+closeBtn.Font = Enum.Font.GothamBold
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 5)
+closeBtn.MouseButton1Click:Connect(function() screenGui.Enabled = false end)
+
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 50)
 title.Text = "UBY GOAT <3"
@@ -63,7 +74,6 @@ local function toggleHitbox()
         if btn then btn.Text = "YAHAYUK: ON" btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) end
     else
         if btn then btn.Text = "AUTO WALK YAHAYUK" btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) end
-        -- RESET TOTAL (Engine Lisfus Style)
         for _, v in pairs(game:GetService("Players"):GetPlayers()) do
             if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 pcall(function()
@@ -98,7 +108,7 @@ btnA.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
 end)
 
--- -- 4. PINTASAN KEYBOARD -- --
+-- -- 4. ENGINE SHORTCUTS (K & L) -- --
 userInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
@@ -108,12 +118,4 @@ end)
 runService.RenderStepped:Connect(function()
     if _G.HitboxStatus then
         for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function()
-                    v.Character.HumanoidRootPart.Size = Vector3.new(10, 10, 10)
-                    v.Character.HumanoidRootPart.Transparency = 1
-                end)
-            end
-        end
-    end
-end)
+            if v ~= player and v.Character and v

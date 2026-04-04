@@ -1,5 +1,5 @@
--- [[ UBY GOAT - LISFUS ENGINE FULL FIX ]] --
--- STATUS: TOTAL RESET ON OFF | X & K: ACTIVE
+-- [[ UBY GOAT - LISFUS ENGINE TRUE DEFAULT ]] --
+-- STATUS: FIX VISUAL BOX | ENGINE: LISFUS | TRANSPARENCY: 1 (FIXED)
 
 local player = game.Players.LocalPlayer
 local runService = game:GetService("RunService")
@@ -62,7 +62,7 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
 title.TextSize = 22
 
--- -- 3. LISFUS ENGINE (DEFAULT RESET LOGIC) -- --
+-- -- 3. LISFUS ENGINE (SAPU BERSIH KOTAK) -- --
 _G.HitboxStatus = false
 
 local function toggleHitbox()
@@ -73,14 +73,24 @@ local function toggleHitbox()
         if btn then btn.Text = "YAHAYUK: ON" btn.BackgroundColor3 = Color3.fromRGB(150, 230, 180) end
     else
         if btn then btn.Text = "AUTO WALK YAHAYUK" btn.BackgroundColor3 = Color3.fromRGB(255, 120, 180) end
-        -- BALIKIN KE POSISI DEFAULT TOTAL --
+        
+        -- RESET DEFAULT TOTAL (TRANSPARENCY 1) --
         for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+            if v ~= player and v.Character then
                 pcall(function()
-                    local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(2, 2, 2) -- Default Roblox
-                    hrp.Transparency = 0 -- Balikin badan kelihatan
-                    hrp.CanCollide = true -- Bisa ditabrak lagi
+                    local hrp = v.Character:FindFirstChild("HumanoidRootPart")
+                    if hrp then
+                        hrp.Size = Vector3.new(2, 2, 2)
+                        hrp.Transparency = 1 -- INI DEFAULT ASLINYA (Gak Kelihatan)
+                        hrp.CanCollide = true
+                        
+                        -- Hapus SelectionBox atau efek visual sisa
+                        for _, effect in pairs(hrp:GetChildren()) do
+                            if effect:IsA("SelectionBox") or effect:IsA("BoxHandleAdornment") then
+                                effect:Destroy()
+                            end
+                        end
+                    end
                 end)
             end
         end
@@ -105,29 +115,4 @@ btnA.BackgroundColor3 = Color3.fromRGB(255, 160, 200)
 btnA.Text = "UBY IMUT <3"
 btnA.TextColor3 = Color3.new(1,1,1)
 btnA.Font = Enum.Font.GothamBold
-Instance.new("UICorner", btnA)
-btnA.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Animation-Pack-FE-88221"))()
-end)
-
--- -- 4. ENGINE SHORTCUTS (K & L) -- --
-userInputService.InputBegan:Connect(function(input, gp)
-    if gp then return end
-    if input.KeyCode == Enum.KeyCode.K then screenGui.Enabled = not screenGui.Enabled end
-    if input.KeyCode == Enum.KeyCode.L then toggleHitbox() end
-end)
-
-runService.RenderStepped:Connect(function()
-    if _G.HitboxStatus then
-        for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-            if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                pcall(function()
-                    local hrp = v.Character.HumanoidRootPart
-                    hrp.Size = Vector3.new(10, 10, 10)
-                    hrp.Transparency = 1
-                    hrp.CanCollide = false
-                end)
-            end
-        end
-    end
-end)
+Instance.new("UIC
